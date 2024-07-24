@@ -10,4 +10,4 @@ the game runs on, and people involved with the games.
 
 ## ERD
 
-![Entity Relationship Diagram](./assets/CPSC304_ERD_games_database.png)
+![Entity Relationship Diagram](./assets/CPSC304_ERD_games_database.jpg)
