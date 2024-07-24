@@ -11,3 +11,6 @@ the game runs on, and people involved with the games.
 ## ERD
 
 ![Entity Relationship Diagram](./assets/CPSC304_ERD_games_database.jpg)
+
+## Milestone 1
+[Milestone 1 PDF](./assets/CPSC304_Milestone%201%20Group%2014.pdf)
