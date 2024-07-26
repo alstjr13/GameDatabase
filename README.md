@@ -16,3 +16,5 @@ test commit
 
 ## Milestone 1
 [Milestone 1 PDF](./assets/CPSC304%20Milestone%201%20Group%2014.pdf)
+
+## Milestone 2
