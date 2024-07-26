@@ -9,7 +9,6 @@ various games including developer and publisher, genre, platforms
 the game runs on, and people involved with the games. Users will be
 able to add information, update entries, and delete entries using a GUI. 
 
-test commit 
 ## ERD
 
 ![Entity Relationship Diagram](./assets/CPSC304_ERD_games_database.jpg)
