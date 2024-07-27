@@ -18,3 +18,6 @@ able to add information, update entries, and delete entries using a GUI.
 
 ## Milestone 2
 [Milestone 2 PDF](./assets/CPSC304_Milestone2_Group14.pdf)
+
+## Milestone 3
+[Milestone 3 PDF](./assets/CPSC304_Milestone3_Group14.pdf)
