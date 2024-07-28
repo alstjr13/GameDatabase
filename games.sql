@@ -371,7 +371,7 @@ INSERT INTO worksAt VALUES (1022, 18, 120); -- Jenova Chen, Thatgamecompany
 
 -- workedOn
 -- Relation
--- INSERT INTO workedOn VALUES (1001, 11) 
+-- INSERT INTO workedOn VALUES (GamePerson(gameperson_id), Game(game_id)) 
 INSERT INTO workedOn VALUES (1001, 11) -- "Brandon Beck", LOL
 INSERT INTO workedOn VALUES (1002, 11) -- "Marc Merrill", LOL
 INSERT INTO workedOn VALUES (1001, 12) -- "Brandon Beck", Valorant
@@ -398,7 +398,7 @@ INSERT INTO workedOn VALUES (1021, 26); -- Tim Schafer, Psychonaut
 
 -- Genre
 -- Entity
--- INSERT INTO Genre VALUES (genre_name)
+-- INSERT INTO Genre VALUES(genre_name)
 INSERT INTO Genre VALUES ("Adventure");
 INSERT INTO Genre VALUES ("Action");
 INSERT INTO Genre VALUES ("Hero Shooter");
@@ -704,25 +704,25 @@ INSERT INTO runsOn VALUES ("Playstation 4", 17); -- Playstation 4, Gran Turismo
 INSERT INTO runsOn VALUES ("Windows", 18); -- Windows, Call of Duty: Mobile
 INSERT INTO runsOn VALUES ("iOS", 18); -- iOS, Call of Duty: Mobile
 INSERT INTO runsOn VALUES ("Android", 18); -- Android, Call of Duty: Mobile
-INSERT INTO runsOn VALUES (19, 'PlayStation 3'); -- The Last of Us
-INSERT INTO runsOn VALUES (19, 'PlayStation 4'); -- The Last of Us
-INSERT INTO runsOn VALUES (20, 'PlayStation 4'); -- The Last of Us Part II
-INSERT INTO runsOn VALUES (20, 'PlayStation 5'); -- The Last of Us Part II
-INSERT INTO runsOn VALUES (21, 'PC'); -- BioShock
-INSERT INTO runsOn VALUES (21, 'Xbox 360'); -- BioShock
-INSERT INTO runsOn VALUES (21, 'PlayStation 3'); -- BioShock
-INSERT INTO runsOn VALUES (22, 'PC'); -- Half-Life
-INSERT INTO runsOn VALUES (23, 'PlayStation 3'); -- Journey
-INSERT INTO runsOn VALUES (23, 'PlayStation 4'); -- Journey
-INSERT INTO runsOn VALUES (24, 'PlayStation 4'); -- God of War
-INSERT INTO runsOn VALUES (25, 'Xbox 360'); -- Gears of War
-INSERT INTO runsOn VALUES (25, 'PC'); -- Gears of War
-INSERT INTO runsOn VALUES (26, 'PC'); -- Psychonauts
-INSERT INTO runsOn VALUES (26, 'Xbox'); -- Psychonauts
-INSERT INTO runsOn VALUES (26, 'PlayStation 2'); -- Psychonauts
-INSERT INTO runsOn VALUES (27, 'PC'); -- Portal
-INSERT INTO runsOn VALUES (27, 'Xbox 360'); -- Portal
-INSERT INTO runsOn VALUES (27, 'PlayStation 3'); -- Portal
+INSERT INTO runsOn VALUES ('PlayStation 3', 19); -- The Last of Us
+INSERT INTO runsOn VALUES ('PlayStation 4', 19); -- The Last of Us
+INSERT INTO runsOn VALUES ('PlayStation 4', 20); -- The Last of Us Part II
+INSERT INTO runsOn VALUES ('PlayStation 5', 20); -- The Last of Us Part II
+INSERT INTO runsOn VALUES ('PC', 21); -- BioShock
+INSERT INTO runsOn VALUES ('Xbox 360', 21); -- BioShock
+INSERT INTO runsOn VALUES ('PlayStation 3', 21); -- BioShock
+INSERT INTO runsOn VALUES ('PC', 22); -- Half-Life
+INSERT INTO runsOn VALUES ('PlayStation 3', 23); -- Journey
+INSERT INTO runsOn VALUES ('PlayStation 4', 23); -- Journey
+INSERT INTO runsOn VALUES ('PlayStation 4', 24); -- God of War
+INSERT INTO runsOn VALUES ('Xbox 360', 25); -- Gears of War
+INSERT INTO runsOn VALUES ('PC', 25); -- Gears of War
+INSERT INTO runsOn VALUES ('PC', 26); -- Psychonauts
+INSERT INTO runsOn VALUES ('Xbox', 26); -- Psychonauts
+INSERT INTO runsOn VALUES ('PlayStation 2', 26); -- Psychonauts
+INSERT INTO runsOn VALUES ('PC', 27); -- Portal
+INSERT INTO runsOn VALUES ('Xbox 360', 27); -- Portal
+INSERT INTO runsOn VALUES ('PlayStation 3', 27); -- Portal
 
 
 
