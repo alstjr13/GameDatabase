@@ -1,4 +1,19 @@
 -- drop statements
+drop table Game;
+drop table GameReviewRating;
+drop table Genre;
+drop table GamePerson;
+drop table Company;
+drop table ESportsOrganization;
+drop table Platform;
+drop table Console;
+drop table inGenre;
+drop table CompetesIn;
+drop table worksAt;
+drop table workedOn;
+drop table runsOn;
+drop table Developed;
+drop table Published; 
 
 -- relations
 CREATE TABLE Game(
@@ -356,7 +371,7 @@ INSERT INTO worksAt VALUES (1022, 18, 120); -- Jenova Chen, Thatgamecompany
 
 -- workedOn
 -- Relation
--- INSERT INTO worksOn VALUES (1001, 11) 
+-- INSERT INTO workedOn VALUES (1001, 11) 
 INSERT INTO workedOn VALUES (1001, 11) -- "Brandon Beck", LOL
 INSERT INTO workedOn VALUES (1002, 11) -- "Marc Merrill", LOL
 INSERT INTO workedOn VALUES (1001, 12) -- "Brandon Beck", Valorant
