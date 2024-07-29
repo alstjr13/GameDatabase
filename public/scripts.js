@@ -37,11 +37,15 @@ async function checkDbConnection() {
 }
 
 // Fetches data from the demotable and displays it.
-async function fetchAndDisplayUsers() {
-    const tableElement = document.getElementById('demotable');
+async function fetchAndDisplayGames() {
+    const tableElement = document.getElementById('gametable');
     const tableBody = tableElement.querySelector('tbody');
+    const tableHeader = document.getElementById('gametableHeaders');
 
-    const response = await fetch('/demotable', {
+    const selectedAttributes = document.querySelectorAll('input[name="gameAttribute"]:checked')
+    console.log(selectedAttributes);
+
+    const response = await fetch('/gametable', {
         method: 'GET'
     });
 

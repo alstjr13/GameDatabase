@@ -76,9 +76,9 @@ async function testOracleConnection() {
     });
 }
 
-async function fetchDemotableFromDb() {
+async function fetchGametableFromDb() {
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute('SELECT * FROM DEMOTABLE');
+        const result = await connection.execute('SELECT * FROM Game');
         return result.rows;
     }).catch(() => {
         return [];
@@ -144,7 +144,7 @@ async function countDemotable() {
 
 module.exports = {
     testOracleConnection,
-    fetchDemotableFromDb,
+    fetchGametableFromDb,
     initiateDemotable, 
     insertDemotable, 
     updateNameDemotable, 

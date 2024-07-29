@@ -26,16 +26,28 @@
 
     <!-- Show 'Demotable'. 
         Data will be fetched and inserted here dynamically using JavaScript. -->
-    <h2>Show Demotable</h2>
-    <table id="demotable" border="1">
+    <h2>Show GameTable</h2>
+    <div>
+        <input type="checkbox" id="game_id" name="gameAttribute" value="game_id" checked>
+        <label for="game_id">ID</label>
+        <input type="checkbox" id="game_name" name="gameAttribute" value="name_id" checked>
+        <label for="game_name">Name</label>
+        <input type="checkbox" id="year_released" name="gameAttribute" value="year_released" checked>
+        <label for="year_released">Year</label>
+        <input type="checkbox" id="budget" name="gameAttribute" value="budget" checked>
+        <label for="budget">Budget</label>
+
+        <button onclick="fetchAndDisplayGames()">Apply</button>
+    </div>
+    <table id="gametable" border="1">
         <thead>
-            <tr>
+            <tr id="gametableHeaders">
                 <!--Table head, need to be adjusted accordingly to align with your own.-->
-                <th>ID</th>
-                <th>Name</th>
+
             </tr>
         </thead>
         <tbody>
+            
         </tbody>
     </table>
 
