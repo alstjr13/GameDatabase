@@ -76,13 +76,18 @@ async function testOracleConnection() {
     });
 }
 
-async function fetchGametableFromDb() {
+async function fetchGametableFromDb(attributes) {
     return await withOracleDB(async (connection) => {
-        const result = await connection.execute('SELECT * FROM Game');
-        return result.rows;
-    }).catch(() => {
-        return [];
-    });
+        try{
+            const selectedColumns = attributes.length > 0 ? attributes : '*';
+            const query = `SELECT ${selectedColumns} FROM Game`;
+            console.log('Executing query:', query); 
+            const result = await connection.execute(query);
+            return result.rows;
+        } catch(err) {
+            console.error(error);
+            return [];
+        }});
 }
 
 async function initiateDemotable() {
