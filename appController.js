@@ -15,9 +15,16 @@ router.get('/check-db-connection', async (req, res) => {
     }
 });
 
-router.get('/demotable', async (req, res) => {
-    const tableContent = await appService.fetchDemotableFromDb();
-    res.json({data: tableContent});
+router.get('/gametable', async (req, res) => {
+    try {
+        const attributes = req.query.attributes;
+        console.log('Attributes received:', attributes);  
+        const tableContent = await appService.fetchGametableFromDb(attributes);
+        res.json({data: tableContent});
+    } catch (error) {
+        res.status(500).json({ success: false });
+        console.error('Error fetching game table:', error);
+    }
 });
 
 router.post("/initiate-demotable", async (req, res) => {

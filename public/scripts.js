@@ -37,23 +37,36 @@ async function checkDbConnection() {
 }
 
 // Fetches data from the demotable and displays it.
-async function fetchAndDisplayUsers() {
-    const tableElement = document.getElementById('demotable');
-    const tableBody = tableElement.querySelector('tbody');
+async function fetchAndDisplayGames() {
+    const tableElement = document.getElementById('gametable');
+    const tableBody = document.getElementById('gametableBody');
+    const tableHeader = document.getElementById('gametableHeaders');
 
-    const response = await fetch('/demotable', {
+    const selectedAttributes = Array.from(
+        document.querySelectorAll('input[name="gameAttribute"]:checked'),
+        element => element.value);
+    console.log(selectedAttributes);
+
+    const response = await fetch(`/gametable?attributes=${selectedAttributes.join(', ')}`, {
         method: 'GET'
     });
-
+    console.log("53");
     const responseData = await response.json();
-    const demotableContent = responseData.data;
+    const gametableContent = responseData.data;
 
     // Always clear old, already fetched data before new fetching process.
     if (tableBody) {
         tableBody.innerHTML = '';
     }
 
-    demotableContent.forEach(user => {
+    tableHeader.innerHTML = '';
+    selectedAttributes.forEach(attribute => {
+        const th = document.createElement('th');
+        th.textContent = attribute;
+        tableHeader.appendChild(th); 
+    })
+
+    gametableContent.forEach(user => {
         const row = tableBody.insertRow();
         user.forEach((field, index) => {
             const cell = row.insertCell(index);
