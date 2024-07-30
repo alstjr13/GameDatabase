@@ -36,21 +36,21 @@ async function checkDbConnection() {
     });
 }
 
-// Fetches data from the demotable and displays it.
-async function fetchAndDisplayGames() {
-    const tableElement = document.getElementById('gametable');
+// Fetches data from the database and displays it.
+async function fetchAndDisplayTable() {
+    const tableName = document.getElementById('table_select').value;
     const tableBody = document.getElementById('gametableBody');
     const tableHeader = document.getElementById('gametableHeaders');
 
     const selectedAttributes = Array.from(
-        document.querySelectorAll('input[name="gameAttribute"]:checked'),
+        document.querySelectorAll('input[name="attribute"]:checked'),
         element => element.value);
     console.log(selectedAttributes);
 
-    const response = await fetch(`/gametable?attributes=${selectedAttributes.join(', ')}`, {
+    const response = await fetch(`/gametable?attributes=${selectedAttributes.join(', ')}&table=${tableName}`, { 
         method: 'GET'
     });
-    console.log("53");
+
     const responseData = await response.json();
     const gametableContent = responseData.data;
 
@@ -74,6 +74,69 @@ async function fetchAndDisplayGames() {
         });
     });
 }
+
+// fetches names of all tables in database
+async function getAllTables() {
+    const table_select_options = document.getElementById('table_select');
+
+    const response = await fetch("/getAllTables", {
+        method: 'GET' // select table_name from user_tables; 
+    });
+    const responseData = await response.json();
+    const tableList = responseData.data;
+
+    // clean dropdown selections, add default one
+    if (table_select_options) {
+        table_select_options.innerHTML = '';
+        const defaultOption = document.createElement('option');
+        defaultOption.value = "";
+        defaultOption.textContent = "--select--"; 
+        table_select_options.appendChild(defaultOption);
+    }
+
+    // create dropdown options and append to table_select 
+    tableList.forEach(tablename => {
+        const option = document.createElement('option');
+        option.value = tablename; 
+        option.textContent = tablename;
+        table_select_options.appendChild(option);
+    });
+}
+
+// add event listener to determine user selected table,
+// then fetch tables attributes from database.
+var tableSelection = document.getElementById("table_select");
+tableSelection.addEventListener('change', async (event) => {
+    const attributeSelect = document.getElementById("attribute_select");
+    const selectedTable = event.target.value;
+    console.log(selectedTable);
+
+    // will return array of objects { name: attribute_name }
+    const response = await fetch(`/getTableAttributes?name=${selectedTable}`, {
+        method: 'GET' 
+    });
+    const responseData = await response.json();
+    const attributesList = responseData.data;
+
+    // clean checkboxes, create new labels and inputs, append to div
+    attributeSelect.innerHTML = '';
+    attributesList.forEach(attribute => {
+        const label = document.createElement('label');
+        const input = document.createElement('input');
+
+        label.htmlFor = attribute.name;
+        label.textContent = attribute.name; 
+
+        input.type = 'checkbox';
+        input.id = attribute.name;
+        input.name = 'attribute';
+        input.value = attribute.name;
+        input.checked = true;
+
+        attributeSelect.appendChild(input);
+        attributeSelect.appendChild(label);
+    });
+});
 
 // This function resets or initializes the demotable.
 async function resetDemotable() {
@@ -166,7 +229,6 @@ async function countDemotable() {
         alert("Error in count demotable!");
     }
 }
-
 
 // ---------------------------------------------------------------
 // Initializes the webpage functionalities.

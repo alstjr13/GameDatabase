@@ -15,15 +15,39 @@ router.get('/check-db-connection', async (req, res) => {
     }
 });
 
+// general use table fetching endpoint not just for table Game i could 
+// rename it but i just dont want to right now
 router.get('/gametable', async (req, res) => {
     try {
         const attributes = req.query.attributes;
+        const tableName = req.query.table; 
         console.log('Attributes received:', attributes);  
-        const tableContent = await appService.fetchGametableFromDb(attributes);
-        res.json({data: tableContent});
+        const tableContent = await appService.fetchGametableFromDb(attributes, tableName);
+        res.json({ data: tableContent });
     } catch (error) {
         res.status(500).json({ success: false });
         console.error('Error fetching game table:', error);
+    }
+});
+
+
+router.get('/getAllTables', async (req, res) => {
+    try {
+        const tableList = await appService.fetchAllTablesFromDb();
+        res.json({ data: tableList });
+    } catch {
+        res.status(500).json({ success: false });
+    }
+});
+
+router.get('/getTableAttributes', async (req, res) => {
+    try {
+        const tableName = req.query.name;
+        console.log("table name is:", tableName);
+        const tableList = await appService.fetchAttributesFromTable(tableName);
+        res.json({ data: tableList });
+    } catch(err) {
+        res.status(500).json({ success: false });
     }
 });
 

@@ -26,19 +26,21 @@
 
     <!-- Show 'Demotable'. 
         Data will be fetched and inserted here dynamically using JavaScript. -->
-    <h2>Show GameTable</h2>
-    <div>
-        <input type="checkbox" id="game_id" name="gameAttribute" value="game_id" checked>
-        <label for="game_id">ID</label>
-        <input type="checkbox" id="game_name" name="gameAttribute" value="game_name" checked>
-        <label for="game_name">Name</label>
-        <input type="checkbox" id="year_released" name="gameAttribute" value="year_released" checked>
-        <label for="year_released">Year</label>
-        <input type="checkbox" id="budget" name="gameAttribute" value="budget" checked>
-        <label for="budget">Budget</label>
+    <h2>Show Table</h2>
 
-        <button onclick="fetchAndDisplayGames()">Apply</button>
+    <button onclick="getAllTables()">fetch tables</button>
+
+    <label for="table_select">Choose a table</label>
+    <select name="tables" id="table_select">
+        <option value="">--select--</option>
+
+    </select>
+
+    <div id="attribute_select">
+
+        
     </div>
+    <button onclick="fetchAndDisplayTable()">Apply</button>
     <table id="gametable" border="1">
         <thead>
             <tr id="gametableHeaders">
