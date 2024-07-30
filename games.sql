@@ -110,7 +110,7 @@ CREATE TABLE worksAt (
 	company_id INT NOT NULL UNIQUE,
 	PRIMARY KEY (gameperson_id), 
 	FOREIGN KEY (gameperson_id)
-		REFERENCES GamePerson(gameperson_id ) 
+		REFERENCES GamePerson(gameperson_id) 
 		ON DELETE CASCADE,
 	FOREIGN KEY (company_id) 
 		REFERENCES Company(company_id)
@@ -122,7 +122,7 @@ CREATE TABLE workedOn (
 	game_id INT,
 	PRIMARY KEY (gameperson_id , game_id),
 	FOREIGN KEY (gameperson_id ) 
-		REFERENCES GamePerson(gameperson_id ) 
+		REFERENCES GamePerson(gameperson_id) 
 		ON DELETE CASCADE,
 	FOREIGN KEY (game_id) 
 		REFERENCES Game(game_id) 

@@ -76,14 +76,37 @@ async function testOracleConnection() {
     });
 }
 
-async function fetchGametableFromDb(attributes) {
+async function fetchGametableFromDb(attributes, tableName) {
     return await withOracleDB(async (connection) => {
         try{
             const selectedColumns = attributes.length > 0 ? attributes : '*';
-            const query = `SELECT ${selectedColumns} FROM Game`;
+            const query = `SELECT ${selectedColumns} FROM ${tableName}`;
             console.log('Executing query:', query); 
             const result = await connection.execute(query);
             return result.rows;
+        } catch(err) {
+            console.error(error);
+            return [];
+        }});
+}
+
+async function fetchAllTablesFromDb() {
+    return await withOracleDB(async (connection) => {
+        try {
+            const result = await connection.execute("SELECT table_name FROM user_tables");
+            return result.rows;
+        } catch(err) {
+            console.error(error);
+            return [];
+        }});
+}
+
+async function fetchAttributesFromTable(tableName) {
+    return await withOracleDB(async (connection) => {
+        try {
+            const result = await connection.execute(`SELECT * FROM ${tableName}`);
+            console.log(result.metaData);
+            return result.metaData;
         } catch(err) {
             console.error(error);
             return [];
@@ -150,6 +173,8 @@ async function countDemotable() {
 module.exports = {
     testOracleConnection,
     fetchGametableFromDb,
+    fetchAllTablesFromDb,
+    fetchAttributesFromTable,
     initiateDemotable, 
     insertDemotable, 
     updateNameDemotable, 
