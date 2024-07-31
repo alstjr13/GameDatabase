@@ -47,6 +47,11 @@ async function fetchAndDisplayTable() {
         element => element.value);
     console.log(selectedAttributes);
 
+    const filterAttributes = document.querySelectorAll('.filter-apply');
+    filterAttributes.forEach(filter => {
+        
+    });
+
     const response = await fetch(`/gametable?attributes=${selectedAttributes.join(', ')}&table=${tableName}`, { 
         method: 'GET'
     });
@@ -104,11 +109,13 @@ async function getAllTables() {
 }
 
 // add event listener to determine user selected table,
-// then fetch tables attributes from database.
+// then fetch tables attributes from database. generate html elements
 var tableSelection = document.getElementById("table_select");
 tableSelection.addEventListener('change', async (event) => {
     const attributeSelect = document.getElementById("attribute_select");
+    const applyFilters = document.getElementById("apply_filter"); 
     const selectedTable = event.target.value;
+
     console.log(selectedTable);
 
     // will return array of objects { name: attribute_name }
@@ -118,9 +125,11 @@ tableSelection.addEventListener('change', async (event) => {
     const responseData = await response.json();
     const attributesList = responseData.data;
 
-    // clean checkboxes, create new labels and inputs, append to div
+    // clean elements, create new labels and inputs, append to div
     attributeSelect.innerHTML = '';
+    applyFilters.innerHTML = '';
     attributesList.forEach(attribute => {
+        // attribute checkboxes for projection
         const label = document.createElement('label');
         const input = document.createElement('input');
 
@@ -135,6 +144,30 @@ tableSelection.addEventListener('change', async (event) => {
 
         attributeSelect.appendChild(input);
         attributeSelect.appendChild(label);
+
+        // attribute filtering for selection
+        const filterDiv = document.createElement('div');
+        filterDiv.className = 'filter-apply'; 
+
+        const filterAttributeName = document.createElement('div');
+        filterAttributeName.innerHTML = `${attribute.name}_attribute`;
+
+        // const filterLabel = document.createElement('label');
+
+        const filterOperator = document.createElement('select');
+        filterOperator.name = `${attribute.name}_operator`;
+        filterOperator.innerHTML = '<option value="=">=</option> <option value=">">></option> <option value="<"><</option>';
+
+        const filterInput = document.createElement('input');
+        filterInput.type = 'text';
+        filterInput.name = `${attribute.name}_input`;
+
+        filterDiv.appendChild(filterAttributeName);
+        // filterDiv.appendChild(filterLabel);
+        filterDiv.appendChild(filterOperator);
+        filterDiv.appendChild(filterInput);
+
+        applyFilters.appendChild(filterDiv);
     });
 });
 
