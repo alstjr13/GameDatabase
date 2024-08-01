@@ -105,9 +105,9 @@ CREATE TABLE CompetesIn (
 );
 
 CREATE TABLE worksAt (
-	gameperson_id INT,
+	gameperson_id INT UNIQUE,
 	years_at_company INT,
-	company_id INT NOT NULL UNIQUE,
+	company_id INT NOT NULL,
 	PRIMARY KEY (gameperson_id), 
 	FOREIGN KEY (gameperson_id)
 		REFERENCES GamePerson(gameperson_id) 
