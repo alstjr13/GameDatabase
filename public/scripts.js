@@ -42,17 +42,27 @@ async function fetchAndDisplayTable() {
     const tableBody = document.getElementById('gametableBody');
     const tableHeader = document.getElementById('gametableHeaders');
 
+    // obtain user selected attributes
     const selectedAttributes = Array.from(
         document.querySelectorAll('input[name="attribute"]:checked'),
         element => element.value);
     console.log(selectedAttributes);
 
-    const filterAttributes = document.querySelectorAll('.filter-apply');
-    filterAttributes.forEach(filter => {
-        
+    const filters = []; 
+    // obtain user selected filters 
+    selectedAttributes.forEach(attribute => {
+        const operator = document.getElementById(attribute.concat("_operator")).value; 
+        const input = document.getElementById(attribute.concat("_input")).value;
+
+        if (input) {
+            filter = attribute.concat(' ', operator, ' ', input); 
+            filters.push(filter);
+        }
     });
 
-    const response = await fetch(`/gametable?attributes=${selectedAttributes.join(', ')}&table=${tableName}`, { 
+    console.log(filters);
+
+    const response = await fetch(`/gametable?attributes=${selectedAttributes.join(', ')}&table=${tableName}&filters=${filters.join(' AND ')}`, { 
         method: 'GET'
     });
 
@@ -71,9 +81,9 @@ async function fetchAndDisplayTable() {
         tableHeader.appendChild(th); 
     })
 
-    gametableContent.forEach(user => {
+    gametableContent.forEach(tuple => {
         const row = tableBody.insertRow();
-        user.forEach((field, index) => {
+        tuple.forEach((field, index) => {
             const cell = row.insertCell(index);
             cell.textContent = field;
         });
@@ -150,17 +160,17 @@ tableSelection.addEventListener('change', async (event) => {
         filterDiv.className = 'filter-apply'; 
 
         const filterAttributeName = document.createElement('div');
-        filterAttributeName.innerHTML = `${attribute.name}_attribute`;
+        filterAttributeName.innerHTML = `${attribute.name}`;
 
         // const filterLabel = document.createElement('label');
 
         const filterOperator = document.createElement('select');
-        filterOperator.name = `${attribute.name}_operator`;
+        filterOperator.id = `${attribute.name}_operator`;
         filterOperator.innerHTML = '<option value="=">=</option> <option value=">">></option> <option value="<"><</option>';
 
         const filterInput = document.createElement('input');
         filterInput.type = 'text';
-        filterInput.name = `${attribute.name}_input`;
+        filterInput.id = `${attribute.name}_input`;
 
         filterDiv.appendChild(filterAttributeName);
         // filterDiv.appendChild(filterLabel);

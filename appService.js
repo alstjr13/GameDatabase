@@ -76,11 +76,9 @@ async function testOracleConnection() {
     });
 }
 
-async function fetchGametableFromDb(attributes, tableName) {
+async function fetchGametableFromDb(query) {
     return await withOracleDB(async (connection) => {
         try{
-            const selectedColumns = attributes.length > 0 ? attributes : '*';
-            const query = `SELECT ${selectedColumns} FROM ${tableName}`;
             console.log('Executing query:', query); 
             const result = await connection.execute(query);
             return result.rows;
