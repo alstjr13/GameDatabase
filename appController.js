@@ -21,8 +21,19 @@ router.get('/gametable', async (req, res) => {
     try {
         const attributes = req.query.attributes;
         const tableName = req.query.table; 
+        const filters = req.query.filters; 
+
         console.log('Attributes received:', attributes);  
-        const tableContent = await appService.fetchGametableFromDb(attributes, tableName);
+
+        const selectedColumns = attributes.length > 0 ? attributes : '*';
+    
+        let query = `SELECT ${selectedColumns} FROM ${tableName}`;
+
+        if (filters) {
+            query += ` WHERE ${filters}`;
+        }
+
+        const tableContent = await appService.fetchGametableFromDb(query);
         res.json({ data: tableContent });
     } catch (error) {
         res.status(500).json({ success: false });

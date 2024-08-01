@@ -28,28 +28,30 @@
         Data will be fetched and inserted here dynamically using JavaScript. -->
     <h2>Show Table</h2>
 
+    <!-- button for retrieving tables from database -->
     <button onclick="getAllTables()">fetch tables</button>
 
+    <!-- area for select element for dropdown menu with table names -->
     <label for="table_select">Choose a table</label>
-    <select name="tables" id="table_select">
-        <option value="">--select--</option>
+    <select name="tables" id="table_select"></select>
 
-    </select>
+    <!-- area for checkboxes to display attribute selection for projection -->
+    <div id="attribute_select"></div>
 
-    <div id="attribute_select">
+    <!-- area to display filtering options -->
+    <div>Set filters below:</div>
+    <div id="apply_filter"></div>
 
-        
-    </div>
+    <!-- button to apply table, projections, filters on table -->
     <button onclick="fetchAndDisplayTable()">Apply</button>
+    <!-- area for fetched table to be displayed -->
     <table id="gametable" border="1">
         <thead>
             <tr id="gametableHeaders">
                 <!--Table head, need to be adjusted accordingly to align with your own.-->
-
             </tr>
         </thead>
         <tbody id="gametableBody">
-            
         </tbody>
     </table>
 
