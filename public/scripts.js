@@ -181,6 +181,39 @@ tableSelection.addEventListener('change', async (event) => {
     });
 });
 
+document.getElementById('insertGameReviewForm').addEventListener('submit', insertGameReviewTable);
+async function insertGameReviewTable(event) {
+    event.preventDefault();
+
+    const idValue = document.getElementById('insertID').value;
+    const authorValue = document.getElementById('insertAuthor').value;
+    const descValue = document.getElementById('insertDesc').value;
+    const scoreValue = document.getElementById('insertScore').value;
+
+    const response = await fetch('/insert-gamereview', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            game_id: idValue,
+            author: authorValue,
+            rev_desc: descValue,
+            score: scoreValue
+        })
+    });
+
+    const responseData = await response.json();
+    const messageElement = document.getElementById('insertResultMsg');
+
+    if (responseData.success) {
+        messageElement.textContent = "Game Review inserted successfully!";
+        console.log("INSERT: GameReview, JSON");
+        fetchTableData();
+    } else {
+        messageElement.textContent = "Error inserting data!";
+    }
+}
 
 // For UPDATE Query
 async function updateGameReview(event) {
