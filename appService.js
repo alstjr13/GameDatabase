@@ -128,6 +128,25 @@ async function updateGameReview(gameID, author, revDesc, score) {
     });
 }
 
+// Send DELETE query to Oracle
+async function deleteGameReview(gameID, author) {
+    console.log("Sending DELETE query to Oracle"); 
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `DELETE FROM GameReview WHERE author = :author AND game_id = :gameID`,
+            { gameID, author },
+            // { autoCommit: true }
+        );
+
+        console.log("GameReview deleted")
+
+        return result.rowsAffected && result.rowsAffected > 0;
+
+    }).catch(() => {
+        return false;
+    });
+}
+
 async function initiateDemotable() {
     return await withOracleDB(async (connection) => {
         try {
@@ -195,4 +214,5 @@ module.exports = {
     updateNameDemotable, 
     countDemotable,
     updateGameReview,
+    deleteGameReview,
 };

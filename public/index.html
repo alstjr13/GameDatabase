@@ -66,7 +66,7 @@
     <p>Please note that the input boxes are case sensitive</p>
  
     <div class="form-container">
-        <form id="insertDemotable">
+        <form id="insertDemotable"> 
             AUTHOR: <input type="text" id="updateAuthor" placeholder="Ex. 'RobbyRobert'" required> <br><br>
             GAME_ID: <input type="number" id="updateGameID" placeholder="Ex. 1" required> <br><br>
             REV_DESC: <input type="text" id="updateRevDesc" placeholder="Ex. 'Fantastic Graphics'" required> <br><br>
@@ -78,6 +78,25 @@
 
 
     <br><hr><br> <!-- ========================================================================= -->
+
+    <!-- DELETE -->
+     <!-- We will let the user delete their GameReview given a GameID and Author-->
+
+     <h2>Delete Your GameReview</h2>
+     <p>Please note that the input boxes are case sensitive</p>
+  
+     <div class="form-container">
+         <form id="insertDemotable">
+             AUTHOR: <input type="text" id="deleteAuthor" placeholder="Ex. 'RobbyRobert'" required> <br><br>
+             GAME_ID: <input type="number" id="deleteGameID" placeholder="Ex. 1" required> <br><br>
+             <button type="button" onclick="deleteGameReview(event)"> Delete Review </button> <br>
+         </form>
+     </div>
+     <div id="deleteResultMsg"></div>
+ 
+ 
+     <br><hr><br> <!-- ========================================================================= -->
+ 
 
     <h2>Reset Demotable</h2>
     <p>If you wish to reset the table press on the reset button. If this is the first time you're running this page, you MUST use reset</p>

@@ -74,6 +74,18 @@ router.post('/update-gamereview', async (req, res) => {
     }
 });
 
+// Listen to DELETE endpoint
+router.post('/delete-gamereview', async (req, res) => {
+    console.log("POST request for delete received");
+    const { gameID, author } = req.body;
+    const updateResult = await appService.deleteGameReview(gameID, author);
+    if (updateResult) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
 router.post("/initiate-demotable", async (req, res) => {
     const initiateResult = await appService.initiateDemotable();
     if (initiateResult) {

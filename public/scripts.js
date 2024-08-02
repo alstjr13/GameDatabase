@@ -183,7 +183,6 @@ tableSelection.addEventListener('change', async (event) => {
 
 
 // For UPDATE Query
-// Updates names in the demotable.
 async function updateGameReview(event) {
     console.log("Update button clicked")
     // event.preventDefault();
@@ -200,7 +199,6 @@ async function updateGameReview(event) {
         headers: {
             'Content-Type': 'application/json'
         },
-        // TODO: Maybe not string
         body: JSON.stringify({
             gameID: gameIDValue,
             author: authorValue,
@@ -219,6 +217,41 @@ async function updateGameReview(event) {
     } else {
         messageElement.textContent = "Error updating GameReview!";
         console.log("Update failed")
+    }
+}
+
+// For DELETE Query
+// Deletes a GameReview specified by author and gameid
+async function deleteGameReview(event) {
+    console.log("Delete button clicked")
+    // event.preventDefault();
+
+    // Retrieve values from HTML form
+    const gameIDValue = document.getElementById('deleteGameID').value;
+    const authorValue = document.getElementById('deleteAuthor').value;
+
+    // Send POST request to DELETE endpoint
+    const response = await fetch('/delete-gamereview', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            gameID: gameIDValue,
+            author: authorValue,
+        })
+    });
+
+    const responseData = await response.json();
+    const messageElement = document.getElementById('deleteResultMsg');
+
+    if (responseData.success) {
+        messageElement.textContent = "GameReview deleted successfully!";
+        console.log("Delete completed")
+        // Might want to call a function here that re-renders projection HTML?
+    } else {
+        messageElement.textContent = "Error deleting GameReview!";
+        console.log("Delete failed")
     }
 }
 
