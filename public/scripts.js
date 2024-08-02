@@ -181,6 +181,61 @@ tableSelection.addEventListener('change', async (event) => {
     });
 });
 
+
+// For UPDATE Query
+// Updates names in the demotable.
+async function updateGameReview(event) {
+    console.log("Update button clicked")
+    // event.preventDefault();
+
+    // Retrieve values from HTML form
+    const gameIDValue = document.getElementById('updateGameID').value;
+    const authorValue = document.getElementById('updateAuthor').value;
+    const revDescValue = document.getElementById('updateRevDesc').value;
+    const scoreValue = document.getElementById('updateScore').value;
+
+    // Send POST request to UPDATE endpoint
+    const response = await fetch('/update-gamereview', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        // TODO: Maybe not string
+        body: JSON.stringify({
+            gameID: gameIDValue,
+            author: authorValue,
+            revDesc: revDescValue,
+            score: scoreValue
+        })
+    });
+
+    const responseData = await response.json();
+    const messageElement = document.getElementById('updateResultMsg');
+
+    if (responseData.success) {
+        messageElement.textContent = "GameReview updated successfully!";
+        console.log("Update completed")
+        // Might want to call a function here that re-renders projection HTML?
+    } else {
+        messageElement.textContent = "Error updating GameReview!";
+        console.log("Update failed")
+    }
+}
+
+
+/* DEMO CODE BELOW
+
+
+
+
+
+
+
+
+
+*/
+
+
 // This function resets or initializes the demotable.
 async function resetDemotable() {
     const response = await fetch("/initiate-demotable", {
@@ -288,5 +343,5 @@ window.onload = function() {
 // General function to refresh the displayed table data. 
 // You can invoke this after any table-modifying operation to keep consistency.
 function fetchTableData() {
-    fetchAndDisplayUsers();
+    // fetchAndDisplayUsers();
 }
