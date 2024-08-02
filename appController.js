@@ -62,6 +62,18 @@ router.get('/getTableAttributes', async (req, res) => {
     }
 });
 
+// Listen to UPDATE endpoint
+router.post('/update-gamereview', async (req, res) => {
+    console.log("POST request for update received");
+    const { gameID, author, revDesc, score } = req.body;
+    const updateResult = await appService.updateGameReview(gameID, author, revDesc, score);
+    if (updateResult) {
+        res.json({ success: true });
+    } else {
+        res.status(500).json({ success: false });
+    }
+});
+
 router.post("/initiate-demotable", async (req, res) => {
     const initiateResult = await appService.initiateDemotable();
     if (initiateResult) {

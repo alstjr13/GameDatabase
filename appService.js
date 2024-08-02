@@ -111,6 +111,23 @@ async function fetchAttributesFromTable(tableName) {
         }});
 }
 
+// Send UPDATE query to Oracle
+async function updateGameReview(gameID, author, revDesc, score) {
+    console.log("Sending UPDATE query to Oracle"); 
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `UPDATE GameReview SET rev_desc=:revDesc, score=:score where author=:author AND game_id=:gameID`,
+            { gameID, author, revDesc, score },
+            { autoCommit: true }
+        );
+
+        return result.rowsAffected && result.rowsAffected > 0;
+
+    }).catch(() => {
+        return false;
+    });
+}
+
 async function initiateDemotable() {
     return await withOracleDB(async (connection) => {
         try {
@@ -176,5 +193,6 @@ module.exports = {
     initiateDemotable, 
     insertDemotable, 
     updateNameDemotable, 
-    countDemotable
+    countDemotable,
+    updateGameReview,
 };

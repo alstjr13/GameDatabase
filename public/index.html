@@ -24,6 +24,8 @@
 
     <br><hr><br> <!-- ========================================================================= -->
 
+    <!-- PROJECTION, FILTER, ??? -->
+
     <!-- Show 'Demotable'. 
         Data will be fetched and inserted here dynamically using JavaScript. -->
     <h2>Show Table</h2>
@@ -54,6 +56,26 @@
         <tbody id="gametableBody">
         </tbody>
     </table>
+
+    <br><hr><br> <!-- ========================================================================= -->
+
+    <!-- UPDATE -->
+     <!-- We will let the user update their GAME_ID, REV_DESC, and SCORE -->
+
+    <h2>Update Your GameReview</h2>
+    <p>Please note that the input boxes are case sensitive</p>
+ 
+    <div class="form-container">
+        <form id="insertDemotable">
+            AUTHOR: <input type="text" id="updateAuthor" placeholder="Ex. 'RobbyRobert'" required> <br><br>
+            GAME_ID: <input type="number" id="updateGameID" placeholder="Ex. 1" required> <br><br>
+            REV_DESC: <input type="text" id="updateRevDesc" placeholder="Ex. 'Fantastic Graphics'" required> <br><br>
+            SCORE: <input type="number" id="updateScore" min="0" max="5"> <br><br>
+            <button type="button" onclick="updateGameReview(event)"> Update Review </button> <br>
+        </form>
+    </div>
+    <div id="updateResultMsg"></div>
+
 
     <br><hr><br> <!-- ========================================================================= -->
 
