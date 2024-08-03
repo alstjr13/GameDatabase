@@ -135,7 +135,7 @@ async function deleteGameReview(gameID, author) {
         const result = await connection.execute(
             `DELETE FROM GameReview WHERE author = :author AND game_id = :gameID`,
             { gameID, author },
-            // { autoCommit: true }
+            { autoCommit: true }
         );
 
         console.log("GameReview deleted")
