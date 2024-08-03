@@ -86,6 +86,20 @@ router.post('/delete-gamereview', async (req, res) => {
     }
 });
 
+// Listen to endpoint for DIVISION
+router.post('/find-games', async (req, res) => {
+    console.log("POST request for division received");
+    const { genres } = req.body;
+
+    try {
+        const games = await appService.findGames(genres);
+        res.json(games);
+    } catch (error) {
+        console.error('Error finding games:', error);
+        res.status(500).json({ success: false });
+    }
+});
+
 // appController : INSERT Game Review
 router.post('/insert-gamereview', async (req, res) => {
     console.log("POST: API request, INSERTing new values")
