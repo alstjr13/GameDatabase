@@ -7,6 +7,7 @@ drop table Company cascade constraints;
 drop table ESportsOrganization cascade constraints;
 drop table Platform cascade constraints;
 drop table Console cascade constraints;
+drop table PC cascade constraints;
 drop table inGenre cascade constraints;
 drop table CompetesIn cascade constraints;
 drop table worksAt cascade constraints;
@@ -66,6 +67,17 @@ CREATE TABLE Platform (
 	platform_name VARCHAR2(255),
 	manufacturer VARCHAR2(255),
 	PRIMARY KEY (platform_name)
+);
+
+CREATE TABLE PC (
+	platform_name VARCHAR2(255),
+	company VARCHAR2(255),
+	os_name VARCHAR2(255),
+	os_year INT,
+	PRIMARY KEY (os_name),
+	FOREIGN KEY (platform_name)
+		REFERENCES Platform(platform_name)
+		ON DELETE CASCADE
 );
 
 CREATE TABLE Console (
@@ -285,6 +297,19 @@ INSERT INTO Console VALUES ('Switch', 2017, 'Mobile');
 INSERT INTO Console VALUES ('PSP', 2005, 'Mobile');
 INSERT INTO Console VALUES ('Xbox Series X/S', 2020, 'Stationary');
 INSERT INTO Console VALUES ('PlayStation 5', 2020, 'Stationary');
+
+-- PC
+-- Entity
+-- INSERT INTO PC VALUES (Platform(platform_name), company, os_name, os_year)
+INSERT INTO PC VALUES ('Windows', 'Microsoft', 'Windows 1.0', 1985); 
+INSERT INTO PC VALUES ('Windows', 'Microsoft', 'Windows XP', 2001); 
+INSERT INTO PC VALUES ('Windows', 'Microsoft', 'Windows 7', 2009); 
+INSERT INTO PC VALUES ('Windows', 'Microsoft', 'Windows 10', 2015); 
+INSERT INTO PC VALUES ('MacOS', 'Apple', 'Mac OS X 10.5 Leopard', 2007); 
+INSERT INTO PC VALUES ('MacOS', 'Apple', 'macOS Catalina', 2019); 
+INSERT INTO PC VALUES ('MacOS', 'Apple', 'macOS Big Sur', 2020); 
+INSERT INTO PC VALUES ('MacOS', 'Apple', 'macOS Sequoia', 2024); 
+
 
 -- Developed
 -- Relation
