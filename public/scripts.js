@@ -13,6 +13,10 @@
  */
 
 
+// global var to keep track of if a game is expanded 
+// id of added row, ie. the expanded view of game
+let currExpandedGameId = null;
+
 // This function checks the database connection and updates its status on the frontend.
 async function checkDbConnection() {
     const statusElem = document.getElementById('dbStatus');
@@ -41,6 +45,7 @@ async function fetchAndDisplayTable() {
     const tableName = document.getElementById('table_select').value;
     const tableBody = document.getElementById('gametableBody');
     const tableHeader = document.getElementById('gametableHeaders');
+    const messageElement = document.getElementById('insertResultMsg');
 
     // obtain user selected attributes
     const selectedAttributes = Array.from(
@@ -69,6 +74,11 @@ async function fetchAndDisplayTable() {
     const responseData = await response.json();
     const gametableContent = responseData.data;
 
+    if (responseData.success) {
+    } else {
+        messageElement.textContent = "Error fetching data!";
+    }
+
     // Always clear old, already fetched data before new fetching process.
     if (tableBody) {
         tableBody.innerHTML = '';
@@ -81,13 +91,99 @@ async function fetchAndDisplayTable() {
         tableHeader.appendChild(th); 
     })
 
-    gametableContent.forEach(tuple => {
+    gametableContent.forEach((tuple, rowIndex) => {
         const row = tableBody.insertRow();
+        if (tableName == 'GAME') {
+            row.id = tuple[0]; // first col is id in our db
+            row.addEventListener('click', () => expandGameDetails(tuple[0], rowIndex));
+        }
         tuple.forEach((field, index) => {
             const cell = row.insertCell(index);
             cell.textContent = field;
         });
     });
+}
+
+// get information through JOIN queries, display under clicked game 
+// only for when GAME table is selected and displayed.
+async function expandGameDetails(game_id, rowIndex) {
+    const tableBody = document.getElementById('gametableBody');
+
+    // generate id 
+    const expansionNewId = `game${game_id}AtRow${rowIndex + 1}`;
+
+    const existingExpanded = document.getElementById(currExpandedGameId);
+
+    // if same row clicked, do nothing else remove
+    if (existingExpanded && currExpandedGameId == expansionNewId) {
+        return; 
+    } else if (existingExpanded) {
+        existingExpanded.remove(); 
+    }
+
+    const genres = await getGenresByGameId(game_id);
+    const publishers = await getPublishersByGameId(game_id);
+    const developers = await getDevelopersByGameId(game_id);
+    const platforms = await getPlatformsByGameId(game_id);
+    const gamepeople = await getGamePeopleByGameId(game_id);
+
+    // create row at rowIndex + 1
+    const row = tableBody.insertRow(rowIndex + 1);
+    row.id = expansionNewId;
+
+    // insert cell for game info
+    const infoCell = row.insertCell(0);
+
+    //cell.colspan = tableBody.rows[0].cells.length - 1; idk why this doesnt work
+    //i mean this entire function is kinda dumb to begin with maybe should have just 
+    //done everything and have stuff hidden through css
+
+    // build content for expanded game information
+    const gameInfo = document.createElement('div');
+    gameInfo.innerHTML = `
+        <strong>Genres:</strong> ${genres.join(', ')}<br>
+        <strong>Publishers:</strong> ${publishers.join(', ')}<br>
+        <strong>Developers:</strong> ${developers.join(', ')}<br>
+        <strong>Platforms:</strong> ${platforms.join(', ')}<br>
+        <strong>People involved:</strong> ${gamepeople.join(', ')}
+    `;
+    
+    // add button to fetch reviews
+    filterReviewButton = document.createElement('button');
+    filterReviewButton.textContent = 'Filter reviews';
+    filterReviewButton.addEventListener('click', () => filterGameReviews(game_id));
+
+    // add form to filter reviews
+    const filterOperator = document.createElement('select');
+    filterOperator.id = `${game_id}_review_operator`;
+    filterOperator.innerHTML = '<option value="=">Equal to</option> <option value=">">Greater than</option> <option value="<">Less than</option>';
+
+    const filterInput = document.createElement('input');
+    filterInput.type = 'text';
+    filterInput.id = `${game_id}_filter_input`;
+
+    // add button to gameInfo div
+    gameInfo.appendChild(document.createElement('br'));
+    gameInfo.appendChild(document.createElement('br'));
+    gameInfo.appendChild(filterReviewButton);
+
+    // add form and operator to gameInfo div
+    gameInfo.appendChild(filterOperator);
+    gameInfo.appendChild(filterInput);
+
+    // cell to display game reviews
+    const reviewCell = row.insertCell(1);
+    reviewCell.id = `${game_id}_reviewCell`;
+
+    // add game info to cell containing game info
+    infoCell.appendChild(gameInfo);
+
+    // add inforCell and reviewCell to row
+    row.appendChild(infoCell);
+    row.appendChild(reviewCell);
+
+    // update currExpandedRowId 
+    currExpandedGameId = expansionNewId;
 }
 
 // fetches names of all tables in database
@@ -289,6 +385,114 @@ async function deleteGameReview(event) {
 }
 
 
+// GET request to retrieve genres by joining Game with inGenre
+// returns only list of genres
+async function getGenresByGameId(game_id) {
+    const response = await fetch(`/getGenresByGameId?game_id=${game_id}`, {
+        method: 'GET'
+    });
+    const responseData = await response.json();
+    const genres = responseData.data;
+
+    return genres;
+}
+
+// GET request to retrieve publishers by joining Game with published
+// returns only list of publishers
+async function getPublishersByGameId(game_id) {
+    const response = await fetch(`/getPublishersByGameId?game_id=${game_id}`, {
+        method: 'GET'
+    });
+    const responseData = await response.json();
+    const publishers = responseData.data;
+
+    return publishers;
+}
+
+// GET request to retrieve developers by joining Game with developed
+// returns only list of developers
+async function getDevelopersByGameId(game_id) {
+    const response = await fetch(`/getDevelopersByGameId?game_id=${game_id}`, {
+        method: 'GET'
+    });
+    const responseData = await response.json();
+    const developers = responseData.data;
+
+    return developers;
+}
+
+// GET request to retrieve platforms by joining Game with runsOn
+// returns only list of platforms
+async function getPlatformsByGameId(game_id) {
+    const response = await fetch(`/getPlatformsByGameId?game_id=${game_id}`, {
+        method: 'GET'
+    });
+    const responseData = await response.json();
+    const platforms = responseData.data;
+
+    return platforms;
+}
+
+// GET request to retrieve game people by joining Game with workedOn
+// returns only list of game people
+async function getGamePeopleByGameId(game_id) {
+    const response = await fetch(`/getGamePeopleByGameId?game_id=${game_id}`, {
+        method: 'GET'
+    });
+    const responseData = await response.json();
+    const gamepeople = responseData.data;
+
+    return gamepeople;
+}
+
+async function filterGameReviews(game_id) {
+    const operator = document.getElementById(`${game_id}_review_operator`).value;
+    const input = document.getElementById(`${game_id}_filter_input`).value;
+
+    if (!input) {
+        alert("Ensure form is filled out!");
+        return;
+    }
+    
+    const response = await fetch(`/getReviewsByGameIdFilter?game_id=${game_id}&operator=${operator}&input=${input}`, {
+        method: 'GET'
+    });
+    const responseData = await response.json();
+    const reviews = responseData.data;
+
+    const reviewCell = document.getElementById(`${game_id}_reviewCell`);
+    let temp = ``;
+    
+    reviews.forEach(tuple => {
+        temp += `
+        <strong>${tuple[0]}:</strong> ${tuple[1]}<strong> [${tuple[2]}]</strong><br>`
+    });
+
+    reviewCell.innerHTML = temp;
+}
+
+
+
+// ---------------------------------------------------------------
+// Initializes the webpage functionalities.
+// Add or remove event listeners based on the desired functionalities.
+window.onload = function() {
+    checkDbConnection();
+    fetchTableData();
+    document.getElementById("resetDemotable").addEventListener("click", resetDemotable);
+    document.getElementById("insertDemotable").addEventListener("submit", insertDemotable);
+    document.getElementById("updataNameDemotable").addEventListener("submit", updateNameDemotable);
+    document.getElementById("countDemotable").addEventListener("click", countDemotable);
+};
+
+// General function to refresh the displayed table data. 
+// You can invoke this after any table-modifying operation to keep consistency.
+function fetchTableData() {
+    // fetchAndDisplayUsers();
+}
+
+
+
 /* DEMO CODE BELOW
 
 
@@ -392,22 +596,4 @@ async function countDemotable() {
     } else {
         alert("Error in count demotable!");
     }
-}
-
-// ---------------------------------------------------------------
-// Initializes the webpage functionalities.
-// Add or remove event listeners based on the desired functionalities.
-window.onload = function() {
-    checkDbConnection();
-    fetchTableData();
-    document.getElementById("resetDemotable").addEventListener("click", resetDemotable);
-    document.getElementById("insertDemotable").addEventListener("submit", insertDemotable);
-    document.getElementById("updataNameDemotable").addEventListener("submit", updateNameDemotable);
-    document.getElementById("countDemotable").addEventListener("click", countDemotable);
-};
-
-// General function to refresh the displayed table data. 
-// You can invoke this after any table-modifying operation to keep consistency.
-function fetchTableData() {
-    // fetchAndDisplayUsers();
 }
