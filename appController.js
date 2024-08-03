@@ -100,6 +100,23 @@ router.post('/find-games', async (req, res) => {
     }
 });
 
+// appController : INSERT Game Review
+router.post('/insert-gamereview', async (req, res) => {
+    console.log("POST: API request, INSERTing new values")
+    const {game_id, author, rev_desc, score} = req.body;
+    const insertResult = await appService.insertGameReview(game_id, author, rev_desc, score)
+    if (insertResult) {
+        res.json({ success: true});
+    } else {
+        res.status(500).json({success: false}); 
+    }
+})
+
+
+
+
+// DEMO CODE BELOW:
+
 router.post("/initiate-demotable", async (req, res) => {
     const initiateResult = await appService.initiateDemotable();
     if (initiateResult) {

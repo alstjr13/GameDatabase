@@ -59,8 +59,24 @@
 
     <br><hr><br> <!-- ========================================================================= -->
 
+    <h2> Insert Your Reviews into GameReview Table </h2>
+    <!----<label for="table_select">Choose a table</label>
+    <select name="tables" id="table_select"></select> --->
+
+    <form id="insertGameReviewForm">
+        ID: <input type="number" id="insertID" placeholder="Enter ID" min="1" required> <br><br>
+        Author: <input type="text" id="insertAuthor" placeholder="Enter your user name" maxlength="20" required> <br><br>
+        Rev_Desc: <input type="text" id="insertDesc" placeholder="Enter Review" required> <br><br>
+        Score: <input type="number" id="insertScore" placeholder="Enter Score (0 ~ 5)" maxlength="20" min="0" max="5"> <br><br> 
+
+        <button type="submit"> Insert Game Review</button> <br>
+    </form>
+    <div id="insertResultMsg"></div>
+
+    <br><hr><br> <!-- ========================================================================= -->
+
     <!-- UPDATE -->
-     <!-- We will let the user update their GAME_ID, REV_DESC, and SCORE -->
+    <!-- We will let the user update their GAME_ID, REV_DESC, and SCORE -->
 
     <h2>Update Your GameReview</h2>
     <p>Please note that the input boxes are case sensitive</p>
@@ -93,6 +109,7 @@
          </form>
      </div>
      <div id="deleteResultMsg"></div>
+
  
  
      <br><hr><br> <!-- ========================================================================= -->
@@ -190,6 +207,7 @@
     <button id="countDemotable"> count </button> <br><br>
     <!-- A placeholder to display the count result. -->
     <div id="countResultMsg"></div> <br>
+
 
     <!-- ===================================================================================== -->
     <!-- External JavaScript file that contains the functionality/logic for the operations above. -->

@@ -182,6 +182,30 @@ async function findGames(genres) {
     });
 }
 
+async function insertGameReview(game_id, author, rev_desc, score) {
+
+    // For debugging:
+    console.log("INSERT: Inserting new values in GameReview Table")
+    console.log(`Game ID: ${game_id}, Author: ${author}, Review Description: ${rev_desc}, Score: ${score}`);
+
+    return await withOracleDB(async (connection) => {
+        
+        const result = await connection.execute(
+            `INSERT INTO GameReview (game_id, author, rev_desc, score) 
+                VALUES (:game_id, :author, :rev_desc, :score)`,
+            [game_id, author, rev_desc, score],
+            { autoCommit: true }
+        );
+        return result.rowsAffected && result.rowsAffected > 0;
+
+    }).catch(() => {
+        return false;
+    });
+}
+
+// DEMO CODE BELOW: 
+
+
 async function initiateDemotable() {
     return await withOracleDB(async (connection) => {
         try {
@@ -251,4 +275,5 @@ module.exports = {
     updateGameReview,
     deleteGameReview,
     findGames,
+    insertGameReview
 };
