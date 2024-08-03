@@ -147,6 +147,7 @@ async function deleteGameReview(gameID, author) {
     });
 }
 
+// FOR DIVISION
 async function findGames(genres) {
     console.log("Sending queries for division"); 
     return await withOracleDB(async (connection) => {
@@ -181,6 +182,44 @@ async function findGames(genres) {
         throw error;
     });
 }
+
+// FOR NESTED
+async function findAboveAverageGames(genres) {
+    console.log("Sending queries to find above average games"); 
+    return await withOracleDB(async (connection) => {
+        // Build the query to find game IDs matching all selected genres
+        const genreConditions = genres.map((_, index) => `g.genre_name = :genre${index}`).join(' OR ');
+        const sqlQuery = `
+            SELECT ga.game_id, ga.game_name
+            FROM inGenre g, Game ga, GameReview gr
+            WHERE ga.game_id = g.game_id AND ga.game_id = gr.game_id AND ${genreConditions}
+            GROUP BY ga.game_id, ga.game_name
+            HAVING AVG(score) > (
+                SELECT AVG(score)
+                FROM GameReview
+            )
+        `;
+        
+        // Create bind parameters
+        const bindParams = genres.reduce((params, genre, index) => {
+            params[`genre${index}`] = genre;
+            return params;
+        }, {});
+
+        // Execute the SELECT query
+        const result = await connection.execute(sqlQuery, bindParams);
+
+        // Map the result to an array of game objects
+        return result.rows.map(row => ({
+            game_id: row[0],
+            name: row[1]
+        }));
+    }).catch((error) => {
+        console.error('Database query error:', error);
+        throw error;
+    });
+}
+
 
 async function insertGameReview(game_id, author, rev_desc, score) {
 
@@ -275,5 +314,6 @@ module.exports = {
     updateGameReview,
     deleteGameReview,
     findGames,
-    insertGameReview
+    insertGameReview,
+    findAboveAverageGames
 };
