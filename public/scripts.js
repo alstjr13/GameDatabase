@@ -384,10 +384,11 @@ async function deleteGameReview(event) {
     }
 }
 
-// FOR DIVISION QUERY
-
-async function submitGenres(event) {
+// FOR DIVISION AND NESTED QUERY
+async function submitGenres(action) {
     event.preventDefault(); // Prevent the default form submission behavior
+
+    const endpoint = action === 'findAboveAverageGames' ? '/find-above-average-games' : '/find-games';
 
     // Get selected genres from checkboxes
     const selectedGenres = Array.from(document.querySelectorAll('input[name="genres"]:checked'))
@@ -397,7 +398,7 @@ async function submitGenres(event) {
 
     // Send selected genres to the server using fetch API
     try {
-        const response = await fetch('/find-games', {
+        const response = await fetch(endpoint, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -520,10 +521,10 @@ async function filterGameReviews(game_id) {
 window.onload = function() {
     checkDbConnection();
     fetchTableData();
-    document.getElementById("resetDemotable").addEventListener("click", resetDemotable);
-    document.getElementById("insertDemotable").addEventListener("submit", insertDemotable);
-    document.getElementById("updataNameDemotable").addEventListener("submit", updateNameDemotable);
-    document.getElementById("countDemotable").addEventListener("click", countDemotable);
+    // document.getElementById("resetDemotable").addEventListener("click", resetDemotable);
+    // document.getElementById("insertDemotable").addEventListener("submit", insertDemotable);
+    // document.getElementById("updataNameDemotable").addEventListener("submit", updateNameDemotable);
+    // document.getElementById("countDemotable").addEventListener("click", countDemotable);
 };
 
 // General function to refresh the displayed table data. 
@@ -542,9 +543,6 @@ function fetchTableData() {
 
 
 /* DEMO CODE BELOW
-
-
-
 
 
 
