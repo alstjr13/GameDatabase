@@ -3,6 +3,33 @@ const appService = require('./appService');
 
 const router = express.Router();
 
+
+
+// Function to sanitize the input from req body
+// Returns true if safe, false otherwise
+function checkReq(req) {
+    const sqlKeywords = [
+        'DROP TABLE', 'DROP DATABASE', 'DELETE FROM', 'INSERT INTO', 
+        'UPDATE SET', 'SELECT * FROM', 'ALTER TABLE', 'CREATE TABLE', 
+        'EXEC ', 'UNION SELECT', '--', ';', '/*', '*/'
+    ];
+    
+    const reqBody = req.body;
+    
+    // Convert everything to uppercase for consistent comparison
+    const upperCaseBody = JSON.stringify(reqBody).toUpperCase();
+
+    // Check for SQL keywords
+    for (const keyword of sqlKeywords) {
+        if (upperCaseBody.includes(keyword)) {
+            console.warn(`Potential SQL injection attempt detected with keyword: ${keyword}`);
+            return false;
+        }
+    }
+
+    return true; // Return true if no dangerous keywords are found
+}
+
 // ----------------------------------------------------------
 // API endpoints
 // Modify or extend these routes based on your project's needs.
@@ -65,6 +92,12 @@ router.get('/getTableAttributes', async (req, res) => {
 // Listen to UPDATE endpoint
 router.post('/update-gamereview', async (req, res) => {
     console.log("POST request for update received");
+
+    // Sanitize input
+    if (!checkReq(req)) {
+        return res.status(400).json({ success: false, message: "Invalid input detected" });
+    }
+
     const { gameID, author, revDesc, score } = req.body;
     const updateResult = await appService.updateGameReview(gameID, author, revDesc, score);
     if (updateResult) {
@@ -77,6 +110,12 @@ router.post('/update-gamereview', async (req, res) => {
 // Listen to DELETE endpoint
 router.post('/delete-gamereview', async (req, res) => {
     console.log("POST request for delete received");
+
+    // Sanitize input
+    if (!checkReq(req)) {
+        return res.status(400).json({ success: false, message: "Invalid input detected" });
+    }
+
     const { gameID, author } = req.body;
     const updateResult = await appService.deleteGameReview(gameID, author);
     if (updateResult) {
@@ -103,6 +142,12 @@ router.post('/find-games', async (req, res) => {
 // appController : INSERT Game Review
 router.post('/insert-gamereview', async (req, res) => {
     console.log("POST: API request, INSERTing new values")
+
+    // Sanitize input
+    if (!checkReq(req)) {
+        return res.status(400).json({ success: false, message: "Invalid input detected" });
+    }
+    
     const {game_id, author, rev_desc, score} = req.body;
     const insertResult = await appService.insertGameReview(game_id, author, rev_desc, score)
     if (insertResult) {
