@@ -84,3 +84,12 @@ input::placeholder, textarea::placeholder {
     height: 1em;
     vertical-align: middle;
 }
+
+/* DROPDOWN */
+
+.dropdown-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
