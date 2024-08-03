@@ -28,7 +28,7 @@ CREATE TABLE GameReview (
 	game_id INT NOT NULL,
 	author VARCHAR2(255),
 	rev_desc VARCHAR2(255),
-	score FLOAT,
+	score INT,
 	PRIMARY KEY (game_id, author),
 	FOREIGN KEY (game_id) 
 		REFERENCES Game(game_id)
@@ -105,7 +105,7 @@ CREATE TABLE CompetesIn (
 );
 
 CREATE TABLE worksAt (
-	gameperson_id INT UNIQUE,
+	gameperson_id INT,
 	years_at_company INT,
 	company_id INT NOT NULL,
 	PRIMARY KEY (gameperson_id), 
@@ -266,9 +266,9 @@ INSERT INTO Platform VALUES ('MacOS', 'Apple');
 INSERT INTO Platform VALUES ('Xbox 360', 'Microsoft');
 INSERT INTO Platform VALUES ('Xbox One', 'Microsoft');
 INSERT INTO Platform VALUES ('Xbox Series X/S', 'Microsoft');
-INSERT INTO Platform VALUES ('Playstation 3', 'Sony'); 
-INSERT INTO Platform VALUES ('Playstation 4', 'Sony'); 
-INSERT INTO Platform VALUES ('Playstation 5', 'Sony');
+INSERT INTO Platform VALUES ('PlayStation 3', 'Sony'); 
+INSERT INTO Platform VALUES ('PlayStation 4', 'Sony'); 
+INSERT INTO Platform VALUES ('PlayStation 5', 'Sony');
 INSERT INTO Platform VALUES ('Switch', 'Nintendo'); 
 INSERT INTO Platform VALUES ('PSP', 'Sony'); 
 INSERT INTO Platform VALUES ('iOS', 'Apple'); 
@@ -279,126 +279,126 @@ INSERT INTO Platform VALUES ('Android', 'Google');
 -- INSERT INTO Console VALUES (Platform(platform_name), console_year, mobility)
 INSERT INTO Console VALUES ('Xbox 360', 2005, 'Stationary');  
 INSERT INTO Console VALUES ('Xbox One', 2013, 'Stationary');
-INSERT INTO Console VALUES ('Playstation 3', 2006, 'Stationary');  
-INSERT INTO Console VALUES ('Playstation 4', 2013, 'Stationary');  
+INSERT INTO Console VALUES ('PlayStation 3', 2006, 'Stationary');  
+INSERT INTO Console VALUES ('PlayStation 4', 2013, 'Stationary');  
 INSERT INTO Console VALUES ('Switch', 2017, 'Mobile');
 INSERT INTO Console VALUES ('PSP', 2005, 'Mobile');
 INSERT INTO Console VALUES ('Xbox Series X/S', 2020, 'Stationary');
-INSERT INTO Console VALUES ('Playstation 5', 2020, 'Stationary');
+INSERT INTO Console VALUES ('PlayStation 5', 2020, 'Stationary');
 
 -- Developed
 -- Relation
 -- INSERT INTO Developed VALUES (Company(company_id), Game(game_id), year_dev)
-INSERT INTO Developed VALUES (114, 1, 2017); -- The Legend of Zelda: Breath of the Wild - Nintendo
-INSERT INTO Developed VALUES (108, 2, 2015); -- The Witcher 3: Wild Hunt - CD Projekt Red
-INSERT INTO Developed VALUES (105, 3, 2018); -- Red Dead Redemption 2 - Rockstar Games
-INSERT INTO Developed VALUES (109, 4, 2015); -- Rainbow Six Siege - Ubisoft
-INSERT INTO Developed VALUES (108, 5, 2020); -- Cyberpunk 2077 - CD Projekt Red
-INSERT INTO Developed VALUES (105, 6, 2013); -- Grand Theft Auto V - Rockstar Games
-INSERT INTO Developed VALUES (110, 7, 2017); -- Fortnite - Epic Games
-INSERT INTO Developed VALUES (111, 8, 2018); -- Among Us - Innersloth
-INSERT INTO Developed VALUES (112, 9, 2020); -- Hades - Supergiant Games
-INSERT INTO Developed VALUES (113, 10, 2016); -- Dark Souls III - FromSoftware
-INSERT INTO Developed VALUES (100, 11, 2009); -- League Of Legends - Riot Games
-INSERT INTO Developed VALUES (100, 12, 2020); -- Valorant - Riot Games
-INSERT INTO Developed VALUES (103, 13, 2003); -- Maplestory - Nexon
-INSERT INTO Developed VALUES (103, 14, 2018); -- Fifa Online 4 - Nexon
-INSERT INTO Developed VALUES (101, 15, 2011); -- Minecraft - Mojang Studios
-INSERT INTO Developed VALUES (104, 16, 1998); -- Starcraft - Activision Blizzard
-INSERT INTO Developed VALUES (115, 17, 2009); -- Gran Turismo - Polyphony Digital
-INSERT INTO Developed VALUES (104, 18, 2019); -- Call of Duty: Mobile - Activision Blizzard
-INSERT INTO Developed VALUES (116, 19, 2013); -- The Last of Us - Naughty Dog
-INSERT INTO Developed VALUES (116, 20, 2020); -- The Last of Us Part II - Naughty Dog
-INSERT INTO Developed VALUES (125, 21, 2007); -- BioShock - Warner Bros. Interactive Entertainment
-INSERT INTO Developed VALUES (117, 22, 1998); -- Half-Life - Valve Corporation
-INSERT INTO Developed VALUES (120, 23, 2012); -- Journey - Thatgamecompany
-INSERT INTO Developed VALUES (123, 24, 2018); -- God of War - Sony Santa Monica
-INSERT INTO Developed VALUES (110, 25, 2006); -- Gears of War - Epic Games
-INSERT INTO Developed VALUES (119, 26, 2005); -- Psychonauts - Double Fine Productions
-INSERT INTO Developed VALUES (117, 27, 2007); -- Portal - Valve Corporation
+INSERT INTO Developed VALUES (114, 1, 2017); 
+INSERT INTO Developed VALUES (108, 2, 2015); 
+INSERT INTO Developed VALUES (105, 3, 2018); 
+INSERT INTO Developed VALUES (109, 4, 2015); 
+INSERT INTO Developed VALUES (108, 5, 2020); 
+INSERT INTO Developed VALUES (105, 6, 2013); 
+INSERT INTO Developed VALUES (110, 7, 2017); 
+INSERT INTO Developed VALUES (111, 8, 2018); 
+INSERT INTO Developed VALUES (112, 9, 2020); 
+INSERT INTO Developed VALUES (113, 10, 2016); 
+INSERT INTO Developed VALUES (100, 11, 2009); 
+INSERT INTO Developed VALUES (100, 12, 2020); 
+INSERT INTO Developed VALUES (103, 13, 2003); 
+INSERT INTO Developed VALUES (103, 14, 2018); 
+INSERT INTO Developed VALUES (101, 15, 2011); 
+INSERT INTO Developed VALUES (104, 16, 1998); 
+INSERT INTO Developed VALUES (115, 17, 2009); 
+INSERT INTO Developed VALUES (104, 18, 2019); 
+INSERT INTO Developed VALUES (116, 19, 2013); 
+INSERT INTO Developed VALUES (116, 20, 2020); 
+INSERT INTO Developed VALUES (125, 21, 2007); 
+INSERT INTO Developed VALUES (117, 22, 1998); 
+INSERT INTO Developed VALUES (120, 23, 2012); 
+INSERT INTO Developed VALUES (123, 24, 2018); 
+INSERT INTO Developed VALUES (110, 25, 2006); 
+INSERT INTO Developed VALUES (119, 26, 2005); 
+INSERT INTO Developed VALUES (117, 27, 2007); 
 
 -- Published
 -- Relation
 -- INSERT INTO Published VALUES (Company(company_id), Game(game_id), year_pub)
-INSERT INTO Published VALUES (114, 1, 2017); -- The Legend of Zelda: Breath of the Wild - Nintendo
-INSERT INTO Published VALUES (108, 2, 2015); -- The Witcher 3: Wild Hunt - 2K Games
-INSERT INTO Published VALUES (105, 3, 2018); -- Red Dead Redemption 2 - Rockstar Games
-INSERT INTO Published VALUES (109, 4, 2015); -- Rainbow Six Siege - Ubisoft Montreal
-INSERT INTO Published VALUES (108, 5, 2020); -- Cyberpunk 2077 - CD Projekt Red
-INSERT INTO Published VALUES (105, 6, 2013); -- Grand Theft Auto V - Rockstar Games
-INSERT INTO Published VALUES (110, 7, 2017); -- Fortnite - Epic Games
-INSERT INTO Published VALUES (111, 8, 2018); -- Among Us - Innersloth
-INSERT INTO Published VALUES (112, 9, 2020); -- Hades - Supergiant Games
-INSERT INTO Published VALUES (121, 10, 2016); -- Dark Souls III - Bandai Namco Entertainment
-INSERT INTO Published VALUES (100, 11, 2009); -- League Of Legends - Riot Games
-INSERT INTO Published VALUES (100, 12, 2020); -- Valorant - Riot Games
-INSERT INTO Published VALUES (103, 13, 2003); -- Maplestory - Nexon
-INSERT INTO Published VALUES (103, 14, 2018); -- Fifa Online 4 - Nexon
-INSERT INTO Published VALUES (101, 15, 2011); -- Minecraft - Mojang Studios
-INSERT INTO Published VALUES (106, 15, 2011); -- Minecraft - Xbox Game Studios
-INSERT INTO Published VALUES (107, 15, 2011); -- Minecraft - Sony Interactive Entertainment
-INSERT INTO Published VALUES (104, 16, 1998); -- Starcraft - Activision Blizzard
-INSERT INTO Published VALUES (107, 17, 2009); -- Gran Turismo - Sony Interactive Entertainment
-INSERT INTO Published VALUES (104, 18, 2019); -- Call of Duty: Mobile - Activision Blizzard
-INSERT INTO Published VALUES (107, 19, 2013); -- The Last of Us - Sony Interactive Entertainment
-INSERT INTO Published VALUES (107, 20, 2020); -- The Last of Us Part II - Sony Interactive Entertainment
-INSERT INTO Published VALUES (125, 21, 2007); -- BioShock - Warner Bros. Interactive Entertainment
-INSERT INTO Published VALUES (117, 22, 1998); -- Half-Life - Valve Corporation
-INSERT INTO Published VALUES (123, 23, 2012); -- Journey - Sony Santa Monica
-INSERT INTO Published VALUES (107, 24, 2018); -- God of War - Sony Interactive Entertainment
-INSERT INTO Published VALUES (110, 25, 2006); -- Gears of War - Epic Games
-INSERT INTO Published VALUES (125, 26, 2005); -- Psychonauts - Warner Bros. Interactive Entertainment
-INSERT INTO Published VALUES (117, 27, 2007); -- Portal - Valve Corporation
+INSERT INTO Published VALUES (114, 1, 2017); 
+INSERT INTO Published VALUES (108, 2, 2015); 
+INSERT INTO Published VALUES (105, 3, 2018); 
+INSERT INTO Published VALUES (109, 4, 2015); 
+INSERT INTO Published VALUES (108, 5, 2020); 
+INSERT INTO Published VALUES (105, 6, 2013); 
+INSERT INTO Published VALUES (110, 7, 2017); 
+INSERT INTO Published VALUES (111, 8, 2018); 
+INSERT INTO Published VALUES (112, 9, 2020); 
+INSERT INTO Published VALUES (121, 10, 2016); 
+INSERT INTO Published VALUES (100, 11, 2009); 
+INSERT INTO Published VALUES (100, 12, 2020); 
+INSERT INTO Published VALUES (103, 13, 2003);
+INSERT INTO Published VALUES (103, 14, 2018);
+INSERT INTO Published VALUES (101, 15, 2011);
+INSERT INTO Published VALUES (106, 15, 2011); 
+INSERT INTO Published VALUES (107, 15, 2011); 
+INSERT INTO Published VALUES (104, 16, 1998); 
+INSERT INTO Published VALUES (107, 17, 2009);
+INSERT INTO Published VALUES (104, 18, 2019); 
+INSERT INTO Published VALUES (107, 19, 2013); 
+INSERT INTO Published VALUES (107, 20, 2020); 
+INSERT INTO Published VALUES (125, 21, 2007);
+INSERT INTO Published VALUES (117, 22, 1998); 
+INSERT INTO Published VALUES (123, 23, 2012); 
+INSERT INTO Published VALUES (107, 24, 2018); 
+INSERT INTO Published VALUES (110, 25, 2006); 
+INSERT INTO Published VALUES (125, 26, 2005); 
+INSERT INTO Published VALUES (117, 27, 2007);
 
 
 -- worksAt
 -- Relation
 -- INSERT INTO worksAt VALUES (GamePerson(gameperson_id), years_at_company, Company(company_id))
-INSERT INTO worksAt VALUES (1001, 18, 100); -- Brandon Beck, Riot Games
-INSERT INTO worksAt VALUES (1002, 18, 100); -- Marc Merrill, Riot Games
-INSERT INTO worksAt VALUES (1003, 25, 103); -- Jung-ju Kim, Nexon
-INSERT INTO worksAt VALUES (1004, 20, 104); -- Michael Morhaime, Blizzard
-INSERT INTO worksAt VALUES (1005, 13, 101); -- Markus Persson, Mojang Studios
-INSERT INTO worksAt VALUES (1006, 26, 105); -- Sam Houser, Rockstar Games
-INSERT INTO worksAt VALUES (1007, 18, 107); -- Hideaki Nishino, Sony Interactive Entertainment
-INSERT INTO worksAt VALUES (1008, 18, 107); -- Hermen Hulst, Sony Interactive Entertainment
-INSERT INTO worksAt VALUES (1009, 41, 114); -- Shigeru Miyamoto, Nintendo
-INSERT INTO worksAt VALUES (1010, 27, 116); -- Todd Howard, Bethesda Game Studios
-INSERT INTO worksAt VALUES (1012, 18, 116); -- Neil Druckmann, Naughty Dog
-INSERT INTO worksAt VALUES (1014, 10, 123); -- Cory Barlog, Sony Santa Monica
-INSERT INTO worksAt VALUES (1015, 25, 117); -- Gabe Newell, Valve Corporation
-INSERT INTO worksAt VALUES (1016, 15, 116); -- Amy Hennig, Naughty Dog
-INSERT INTO worksAt VALUES (1017, 20, 110); -- Cliff Bleszinski, Epic Games
-INSERT INTO worksAt VALUES (1019, 10, 120); -- Jonathan Blow, Thatgamecompany
-INSERT INTO worksAt VALUES (1021, 25, 119); -- Tim Schafer, Double Fine Productions
-INSERT INTO worksAt VALUES (1022, 18, 120); -- Jenova Chen, Thatgamecompany
+INSERT INTO worksAt VALUES (1001, 18, 100); 
+INSERT INTO worksAt VALUES (1002, 18, 100); 
+INSERT INTO worksAt VALUES (1003, 25, 103);
+INSERT INTO worksAt VALUES (1004, 20, 104);
+INSERT INTO worksAt VALUES (1005, 13, 101); 
+INSERT INTO worksAt VALUES (1006, 26, 105);
+INSERT INTO worksAt VALUES (1007, 18, 107); 
+INSERT INTO worksAt VALUES (1008, 18, 107);
+INSERT INTO worksAt VALUES (1009, 41, 114);
+INSERT INTO worksAt VALUES (1010, 27, 116); 
+INSERT INTO worksAt VALUES (1012, 18, 116); 
+INSERT INTO worksAt VALUES (1014, 10, 123); 
+INSERT INTO worksAt VALUES (1015, 25, 117);
+INSERT INTO worksAt VALUES (1016, 15, 116);
+INSERT INTO worksAt VALUES (1017, 20, 110);
+INSERT INTO worksAt VALUES (1019, 10, 120); 
+INSERT INTO worksAt VALUES (1021, 25, 119);
+INSERT INTO worksAt VALUES (1022, 18, 120); 
 
 -- workedOn
 -- Relation
 -- INSERT INTO workedOn VALUES (GamePerson(gameperson_id), Game(game_id)) 
-INSERT INTO workedOn VALUES (1001, 11); -- 'Brandon Beck', LOL
-INSERT INTO workedOn VALUES (1002, 11); -- 'Marc Merrill', LOL
-INSERT INTO workedOn VALUES (1001, 12); -- 'Brandon Beck', Valorant
-INSERT INTO workedOn VALUES (1002, 12); -- 'Marc Merrill', Valorant
-INSERT INTO workedOn VALUES (1003, 13); -- 'Jung-ju Kim', Maplestory
-INSERT INTO workedOn VALUES (1003, 14); -- 'Jung-ju Kim', Fifa Online 4
-INSERT INTO workedOn VALUES (1004, 16); -- 'Michael Morhaime', Starcraft
-INSERT INTO workedOn VALUES (1005, 15); -- 'Markus Persson', Minecraft
-INSERT INTO workedOn VALUES (1006, 6); -- 'Sam Houser', GTA V
-INSERT INTO workedOn VALUES (1007, 24); -- Hideaki Nishino, God of War
-INSERT INTO workedOn VALUES (1008, 24); -- Hermen Hulst, God of War
-INSERT INTO workedOn VALUES (1009, 1); -- Shigeru Miyamoto, The Legend of Zelda: Breath of the Wild
-INSERT INTO workedOn VALUES (1010, 3); -- Todd Howard, Fallout 3
-INSERT INTO workedOn VALUES (1011, 21); -- Ken Levine, BioShock
-INSERT INTO workedOn VALUES (1012, 19); -- Neil Druckmann, The Last of Us
-INSERT INTO workedOn VALUES (1012, 20); -- Neil Druckmann, The Last of Us Part II
-INSERT INTO workedOn VALUES (1014, 24); -- Cory Barlog, God of War
-INSERT INTO workedOn VALUES (1015, 27); -- Gabe Newell, Portal
-INSERT INTO workedOn VALUES (1016, 19); -- Amy Hennig, The Last of Us Part II
-INSERT INTO workedOn VALUES (1017, 25); -- Cliff Bleszinski, Gears of War
-INSERT INTO workedOn VALUES (1019, 23); -- Jonathan Blow, Journey
-INSERT INTO workedOn VALUES (1022, 23); -- Jenova Chen, Journey
-INSERT INTO workedOn VALUES (1021, 26); -- Tim Schafer, Psychonaut
+INSERT INTO workedOn VALUES (1001, 11); 
+INSERT INTO workedOn VALUES (1002, 11); 
+INSERT INTO workedOn VALUES (1001, 12); 
+INSERT INTO workedOn VALUES (1002, 12); 
+INSERT INTO workedOn VALUES (1003, 13); 
+INSERT INTO workedOn VALUES (1003, 14); 
+INSERT INTO workedOn VALUES (1004, 16); 
+INSERT INTO workedOn VALUES (1005, 15); 
+INSERT INTO workedOn VALUES (1006, 6); 
+INSERT INTO workedOn VALUES (1007, 24); 
+INSERT INTO workedOn VALUES (1008, 24); 
+INSERT INTO workedOn VALUES (1009, 1);
+INSERT INTO workedOn VALUES (1010, 3); 
+INSERT INTO workedOn VALUES (1011, 21); 
+INSERT INTO workedOn VALUES (1012, 19); 
+INSERT INTO workedOn VALUES (1012, 20); 
+INSERT INTO workedOn VALUES (1014, 24); 
+INSERT INTO workedOn VALUES (1015, 27); 
+INSERT INTO workedOn VALUES (1016, 19); 
+INSERT INTO workedOn VALUES (1017, 25); 
+INSERT INTO workedOn VALUES (1019, 23); 
+INSERT INTO workedOn VALUES (1022, 23); 
+INSERT INTO workedOn VALUES (1021, 26); 
 
 -- Genre
 -- Entity
@@ -568,73 +568,73 @@ INSERT INTO inGenre VALUES (27, 'First Person Shooter');
 -- GameReview
 -- Entity
 -- INSERT INTO GameReview VALUES (Game(game_id), author, description, score)
-INSERT INTO GameReview VALUES (1, 'RogueFan', 'An incredible journey from start to finish. The open-world design is unmatched.', 4.8);
-INSERT INTO GameReview VALUES (1, 'GamerGirl', 'A breathtaking adventure that redefines the genre.', 4.7);
-INSERT INTO GameReview VALUES (1, 'GamerGuy', 'The best Zelda game yet! A true masterpiece.', 4.9);
-INSERT INTO GameReview VALUES (1, 'CasualPlayer', 'A bit overwhelming at first, but once you get the hang of it, it''s amazing.', 4.2);
-INSERT INTO GameReview VALUES (1, 'OldSchoolGamer', 'Brings back the nostalgia with a modern twist. Absolutely loved it!', 4.6);
-INSERT INTO GameReview VALUES (2, 'GamerGirl', 'Geralt''s adventures are as thrilling as ever. A true RPG gem.', 4.9);
-INSERT INTO GameReview VALUES (2, 'RPGenthusiast', 'One of the best RPGs ever made. The story, the characters, the world - all top-notch.', 4.8);
-INSERT INTO GameReview VALUES (2, 'CasualPlayer', 'A bit too complex for my taste, but undeniably a great game.', 4.0);
-INSERT INTO GameReview VALUES (2, 'FantasyLover', 'A dark, gripping story that kept me hooked from start to finish.', 4.7);
-INSERT INTO GameReview VALUES (2, 'GamerDad', 'An epic tale with so much to do. I can''t recommend it enough.', 4.5);
-INSERT INTO GameReview VALUES (5, 'GamerDad', 'Despite the bugs, the story and world are immersive and engaging.', 3.9);
-INSERT INTO GameReview VALUES (5, 'TechJunkie', 'A futuristic masterpiece. The city feels alive and the missions are exciting.', 4.4);
-INSERT INTO GameReview VALUES (5, 'CasualPlayer', 'The game had a rocky start, but after updates, it''s quite enjoyable.', 3.8);
-INSERT INTO GameReview VALUES (5, 'GamerGirl', 'A brilliant sci-fi RPG that delivers on its promises.', 4.2);
-INSERT INTO GameReview VALUES (5, 'RPGenthusiast', 'Complex characters and a deep story make this a must-play.', 4.5);
-INSERT INTO GameReview VALUES (6, 'RPGenthusiast', 'An open-world experience like no other. Endless fun and chaos.', 4.9);
-INSERT INTO GameReview VALUES (6, 'ActionLover', 'The missions are thrilling and the world is incredibly detailed.', 4.8);
-INSERT INTO GameReview VALUES (6, 'GamerDad', 'A bit overhyped, but still a solid game with lots to do.', 3.9);
-INSERT INTO GameReview VALUES (6, 'CasualPlayer', 'Great game, but the online mode can be frustrating at times.', 4.1);
-INSERT INTO GameReview VALUES (6, 'ThrillSeeker', 'The story mode is fantastic and the characters are memorable.', 4.7);
-INSERT INTO GameReview VALUES (7, 'ThrillSeeker', 'The best battle royale game out there. Constant updates keep it fresh.', 4.6);
-INSERT INTO GameReview VALUES (7, 'CasualPlayer', 'Fun to play with friends, but can get repetitive after a while.', 3.8);
-INSERT INTO GameReview VALUES (7, 'BuildingMaster', 'The building mechanics add a unique twist to the gameplay.', 4.5);
-INSERT INTO GameReview VALUES (7, 'GamerGirl', 'Great game with a vibrant community and creative modes.', 4.3);
-INSERT INTO GameReview VALUES (7, 'RPGenthusiast', 'Super fun and addictive. I love the skins and emotes.', 4.4);
-INSERT INTO GameReview VALUES (8, 'GamerDad', 'A simple yet highly addictive game. Perfect for parties.', 4.2);
-INSERT INTO GameReview VALUES (8, 'OldSchoolGamer', 'The social deduction aspect is thrilling and keeps you on your toes.', 4.1);
-INSERT INTO GameReview VALUES (8, 'GamerGirl', 'Fun to play with friends, but can get a bit stale after many rounds.', 3.9);
-INSERT INTO GameReview VALUES (8, 'CasualGamer', 'A great game for quick sessions. Easy to learn, hard to master.', 4.0);
-INSERT INTO GameReview VALUES (9, 'GamerGirl', 'A perfect blend of roguelike mechanics and a compelling story.', 4.8);
-INSERT INTO GameReview VALUES (9, 'CasualPlayer', 'The combat is smooth and the progression is rewarding.', 4.6);
-INSERT INTO GameReview VALUES (9, 'GreekMythFan', 'An amazing game with rich lore and great characters.', 4.7);
-INSERT INTO GameReview VALUES (9, 'RogueFan', 'Each run feels unique and the game keeps you coming back for more.', 4.5);
-INSERT INTO GameReview VALUES (9, 'GamerGuy', 'One of the best indie games I''ve ever played. Highly recommended.', 4.9);
-INSERT INTO GameReview VALUES (10, 'SoulsborneFan', 'A challenging and rewarding experience. Not for the faint-hearted.', 4.7);
-INSERT INTO GameReview VALUES (10, 'HardcoreGamer', 'The difficulty is brutal but fair. An absolute masterpiece.', 4.8);
-INSERT INTO GameReview VALUES (10, 'CasualPlayer', 'Too difficult for me, but I can see why others love it.', 3.5);
-INSERT INTO GameReview VALUES (10, 'FantasyFan', 'The dark, atmospheric world is captivating and the lore is deep.', 4.6);
-INSERT INTO GameReview VALUES (11, 'GamerDad', 'Overall, Its a nice MOBA Game, the learning curve may be steep but as you progress and learn its rewarding, most especially learning the different champions in the game,', 2.9);
-INSERT INTO GameReview VALUES (11, 'LeaguePlayer2', 'Best game ever!', 4.5);
-INSERT INTO GameReview VALUES (12, 'GamerGuy', 'Valorant has taken the gaming world by storm since its release in 2020, quickly becoming one of the most popular games in the competitive gaming scene.', 3.8);
-INSERT INTO GameReview VALUES (12, 'LeaguePlayer2', 'Valorant is the worst game ever. League of Legends is way better.', 2.1);
-INSERT INTO GameReview VALUES (13, 'MaplestoryPlayer1', 'I have played this game since It''s beta release in America. I have been apart of every update this game has gone through since then and I must say it was like watching a best friend grow up with me. ', 3.0);
-INSERT INTO GameReview VALUES (14, 'ActionLover', 'I have been a Fifa player since fifa 97 and had my fair share of disappointments with it. Fifa 23 is a huge improvement on 22. You actually have to play sensible. ', 3.4);
-INSERT INTO GameReview VALUES (15, 'MinecraftPlayer1', 'this game is actually amazing', 4.5);
-INSERT INTO GameReview VALUES (16, 'StarcraftPlayer1', 'spend more than half of my life playing this game. everything was just too good. ', 4.9);
-INSERT INTO GameReview VALUES (23, 'GamerGuy', 'A beautiful and emotional experience. A true piece of art.', 4.9);
-INSERT INTO GameReview VALUES (23, 'CasualPlayer', 'Short but impactful. The visuals and music are stunning.', 4.5);
-INSERT INTO GameReview VALUES (23, 'RPGenthusiast', 'A masterpiece in storytelling without words. Simply amazing.', 4.8);
-INSERT INTO GameReview VALUES (23, 'GamerGirl', 'An unforgettable journey. The multiplayer aspect is unique and touching.', 4.6);
-INSERT INTO GameReview VALUES (23, 'LeaguePlayer2', 'A serene and peaceful game that everyone should experience.', 4.7);
-INSERT INTO GameReview VALUES (27, 'ILovePortal', 'A brilliant puzzle game with a dark sense of humor. Loved it.', 4.9);
-INSERT INTO GameReview VALUES (27, 'RogueFan', 'The concept and execution are perfect. GLaDOS is a fantastic character.', 4.8);
-INSERT INTO GameReview VALUES (27, 'CasualGamer', 'Short but sweet. The puzzles are challenging and fun.', 4.4);
-INSERT INTO GameReview VALUES (27, 'GamerGuy', 'An innovative game that changed the genre. Highly recommended.', 4.7);
-INSERT INTO GameReview VALUES (27, 'MaplestoryPlayer1', 'The perfect blend of storytelling and puzzle-solving.', 4.6);
+INSERT INTO GameReview VALUES (1, 'RogueFan', 'An incredible journey from start to finish. The open-world design is unmatched.', 5);
+INSERT INTO GameReview VALUES (1, 'GamerGirl', 'A breathtaking adventure that redefines the genre.', 4);
+INSERT INTO GameReview VALUES (1, 'GamerGuy', 'The best Zelda game yet! A true masterpiece.', 5);
+INSERT INTO GameReview VALUES (1, 'CasualPlayer', 'A bit overwhelming at first, but once you get the hang of it, it''s amazing.', 4);
+INSERT INTO GameReview VALUES (1, 'OldSchoolGamer', 'Brings back the nostalgia with a modern twist. Absolutely loved it!', 4);
+INSERT INTO GameReview VALUES (2, 'GamerGirl', 'Geralt''s adventures are as thrilling as ever. A true RPG gem.', 5);
+INSERT INTO GameReview VALUES (2, 'RPGenthusiast', 'One of the best RPGs ever made. The story, the characters, the world - all top-notch.', 5);
+INSERT INTO GameReview VALUES (2, 'CasualPlayer', 'A bit too complex for my taste, but undeniably a great game.', 4);
+INSERT INTO GameReview VALUES (2, 'FantasyLover', 'A dark, gripping story that kept me hooked from start to finish.', 5);
+INSERT INTO GameReview VALUES (2, 'GamerDad', 'An epic tale with so much to do. I can''t recommend it enough.', 4);
+INSERT INTO GameReview VALUES (5, 'GamerDad', 'Despite the bugs, the story and world are immersive and engaging.', 4);
+INSERT INTO GameReview VALUES (5, 'TechJunkie', 'A futuristic masterpiece. The city feels alive and the missions are exciting.', 4);
+INSERT INTO GameReview VALUES (5, 'CasualPlayer', 'The game had a rocky start, but after updates, it''s quite enjoyable.', 3);
+INSERT INTO GameReview VALUES (5, 'GamerGirl', 'A brilliant sci-fi RPG that delivers on its promises.', 4);
+INSERT INTO GameReview VALUES (5, 'RPGenthusiast', 'Complex characters and a deep story make this a must-play.', 4);
+INSERT INTO GameReview VALUES (6, 'RPGenthusiast', 'An open-world experience like no other. Endless fun and chaos.', 5);
+INSERT INTO GameReview VALUES (6, 'ActionLover', 'The missions are thrilling and the world is incredibly detailed.', 5);
+INSERT INTO GameReview VALUES (6, 'GamerDad', 'A bit overhyped, but still a solid game with lots to do.', 4);
+INSERT INTO GameReview VALUES (6, 'CasualPlayer', 'Great game, but the online mode can be frustrating at times.', 4);
+INSERT INTO GameReview VALUES (6, 'ThrillSeeker', 'The story mode is fantastic and the characters are memorable.', 5);
+INSERT INTO GameReview VALUES (7, 'ThrillSeeker', 'The best battle royale game out there. Constant updates keep it fresh.', 4);
+INSERT INTO GameReview VALUES (7, 'CasualPlayer', 'Fun to play with friends, but can get repetitive after a while.', 3);
+INSERT INTO GameReview VALUES (7, 'BuildingMaster', 'The building mechanics add a unique twist to the gameplay.', 4);
+INSERT INTO GameReview VALUES (7, 'GamerGirl', 'Great game with a vibrant community and creative modes.', 4);
+INSERT INTO GameReview VALUES (7, 'RPGenthusiast', 'Super fun and addictive. I love the skins and emotes.', 4);
+INSERT INTO GameReview VALUES (8, 'GamerDad', 'A simple yet highly addictive game. Perfect for parties.', 4);
+INSERT INTO GameReview VALUES (8, 'OldSchoolGamer', 'The social deduction aspect is thrilling and keeps you on your toes.', 5);
+INSERT INTO GameReview VALUES (8, 'GamerGirl', 'Fun to play with friends, but can get a bit stale after many rounds.', 4);
+INSERT INTO GameReview VALUES (8, 'CasualGamer', 'A great game for quick sessions. Easy to learn, hard to master.', 4);
+INSERT INTO GameReview VALUES (9, 'GamerGirl', 'A perfect blend of roguelike mechanics and a compelling story.', 5);
+INSERT INTO GameReview VALUES (9, 'CasualPlayer', 'The combat is smooth and the progression is rewarding.', 5);
+INSERT INTO GameReview VALUES (9, 'GreekMythFan', 'An amazing game with rich lore and great characters.', 5);
+INSERT INTO GameReview VALUES (9, 'RogueFan', 'Each run feels unique and the game keeps you coming back for more.', 4);
+INSERT INTO GameReview VALUES (9, 'GamerGuy', 'One of the best indie games I''ve ever played. Highly recommended.', 5);
+INSERT INTO GameReview VALUES (10, 'SoulsborneFan', 'A challenging and rewarding experience. Not for the faint-hearted.', 4);
+INSERT INTO GameReview VALUES (10, 'HardcoreGamer', 'The difficulty is brutal but fair. An absolute masterpiece.', 5);
+INSERT INTO GameReview VALUES (10, 'CasualPlayer', 'Too difficult for me, but I can see why others love it.', 3);
+INSERT INTO GameReview VALUES (10, 'FantasyFan', 'The dark, atmospheric world is captivating and the lore is deep.', 4);
+INSERT INTO GameReview VALUES (11, 'GamerDad', 'Overall, Its a nice MOBA Game, the learning curve may be steep but as you progress and learn its rewarding, most especially learning the different champions in the game,', 3);
+INSERT INTO GameReview VALUES (11, 'LeaguePlayer2', 'Best game ever!', 4);
+INSERT INTO GameReview VALUES (12, 'GamerGuy', 'Valorant has taken the gaming world by storm since its release in 2020, quickly becoming one of the most popular games in the competitive gaming scene.', 4);
+INSERT INTO GameReview VALUES (12, 'LeaguePlayer2', 'Valorant is the worst game ever. League of Legends is way better.', 2);
+INSERT INTO GameReview VALUES (13, 'MaplestoryPlayer1', 'I have played this game since It''s beta release in America. I have been apart of every update this game has gone through since then and I must say it was like watching a best friend grow up with me. ', 3);
+INSERT INTO GameReview VALUES (14, 'ActionLover', 'I have been a Fifa player since fifa 97 and had my fair share of disappointments with it. Fifa 23 is a huge improvement on 22. You actually have to play sensible. ', 3);
+INSERT INTO GameReview VALUES (15, 'MinecraftPlayer1', 'this game is actually amazing', 4);
+INSERT INTO GameReview VALUES (16, 'StarcraftPlayer1', 'spend more than half of my life playing this game. everything was just too good. ', 5);
+INSERT INTO GameReview VALUES (23, 'GamerGuy', 'A beautiful and emotional experience. A true piece of art.', 5);
+INSERT INTO GameReview VALUES (23, 'CasualPlayer', 'Short but impactful. The visuals and music are stunning.', 4);
+INSERT INTO GameReview VALUES (23, 'RPGenthusiast', 'A masterpiece in storytelling without words. Simply amazing.', 5);
+INSERT INTO GameReview VALUES (23, 'GamerGirl', 'An unforgettable journey. The multiplayer aspect is unique and touching.', 4);
+INSERT INTO GameReview VALUES (23, 'LeaguePlayer2', 'A serene and peaceful game that everyone should experience.', 4);
+INSERT INTO GameReview VALUES (27, 'ILovePortal', 'A brilliant puzzle game with a dark sense of humor. Loved it.', 5);
+INSERT INTO GameReview VALUES (27, 'RogueFan', 'The concept and execution are perfect. GLaDOS is a fantastic character.', 5);
+INSERT INTO GameReview VALUES (27, 'CasualGamer', 'Short but sweet. The puzzles are challenging and fun.', 4);
+INSERT INTO GameReview VALUES (27, 'GamerGuy', 'An innovative game that changed the genre. Highly recommended.', 5);
+INSERT INTO GameReview VALUES (27, 'MaplestoryPlayer1', 'The perfect blend of storytelling and puzzle-solving.', 4);
 
-INSERT INTO GameReview VALUES (8, 'IGN', 'Among Us is a simple yet highly addictive game that thrives on social interaction. It''s a perfect game for parties and online play.', 4.0);
-INSERT INTO GameReview VALUES (8, 'GameSpot', 'The charm of Among Us lies in its simplicity and the thrill of deception. It''s a must-play for fans of social deduction games.', 4.2);
-INSERT INTO GameReview VALUES (21, 'IGN', 'BioShock is a groundbreaking game that combines a compelling narrative with immersive gameplay. It''s a masterpiece in the gaming world.', 4.9);
-INSERT INTO GameReview VALUES (21, 'GameSpot', 'With its unique setting and thought-provoking story, BioShock stands out as one of the best games of its generation.', 4.8);
-INSERT INTO GameReview VALUES (9, 'IGN', 'Hades is a stunning blend of roguelike mechanics and deep storytelling. Its replayability and rich characters make it a standout title.', 4.8);
-INSERT INTO GameReview VALUES (9, 'GameSpot', 'From its fluid combat to its engaging narrative, Hades sets a new standard for roguelike games. It''s an absolute must-play.', 4.9);
-INSERT INTO GameReview VALUES (19, 'IGN', 'The Last of Us is a gripping tale of survival and companionship. Its emotional depth and immersive gameplay make it a modern classic.', 4.9);
-INSERT INTO GameReview VALUES (19, 'GameSpot', 'A masterclass in storytelling and character development, The Last of Us is a powerful and unforgettable gaming experience.', 4.8);
-INSERT INTO GameReview VALUES (20, 'IGN', 'The Last of Us Part II pushes the boundaries of narrative and emotional storytelling in games. It''s a bold and unforgettable sequel.', 4.7);
-INSERT INTO GameReview VALUES (20, 'GameSpot', 'A stunning and controversial follow-up, The Last of Us Part II delivers an intense and emotionally charged experience.', 4.6);
+INSERT INTO GameReview VALUES (8, 'IGN', 'Among Us is a simple yet highly addictive game that thrives on social interaction. It''s a perfect game for parties and online play.', 4);
+INSERT INTO GameReview VALUES (8, 'GameSpot', 'The charm of Among Us lies in its simplicity and the thrill of deception. It''s a must-play for fans of social deduction games.', 4);
+INSERT INTO GameReview VALUES (21, 'IGN', 'BioShock is a groundbreaking game that combines a compelling narrative with immersive gameplay. It''s a masterpiece in the gaming world.', 5);
+INSERT INTO GameReview VALUES (21, 'GameSpot', 'With its unique setting and thought-provoking story, BioShock stands out as one of the best games of its generation.', 5);
+INSERT INTO GameReview VALUES (9, 'IGN', 'Hades is a stunning blend of roguelike mechanics and deep storytelling. Its replayability and rich characters make it a standout title.', 4);
+INSERT INTO GameReview VALUES (9, 'GameSpot', 'From its fluid combat to its engaging narrative, Hades sets a new standard for roguelike games. It''s an absolute must-play.', 5);
+INSERT INTO GameReview VALUES (19, 'IGN', 'The Last of Us is a gripping tale of survival and companionship. Its emotional depth and immersive gameplay make it a modern classic.', 5);
+INSERT INTO GameReview VALUES (19, 'GameSpot', 'A masterclass in storytelling and character development, The Last of Us is a powerful and unforgettable gaming experience.', 5);
+INSERT INTO GameReview VALUES (20, 'IGN', 'The Last of Us Part II pushes the boundaries of narrative and emotional storytelling in games. It''s a bold and unforgettable sequel.', 4);
+INSERT INTO GameReview VALUES (20, 'GameSpot', 'A stunning and controversial follow-up, The Last of Us Part II delivers an intense and emotionally charged experience.', 4);
 
 -- ESportsOrganization
 -- Entity
@@ -650,80 +650,85 @@ INSERT INTO ESportsOrganization VALUES (10006, 2, 'Fnatic');
 -- CompetesIn
 -- Relation
 -- INSERT INTO CompetesIn VALUES (ESportsOrganization(es_id), Game(game_id))
-INSERT INTO CompetesIn VALUES (10000, 11); -- SK Telecome T1, LOL
-INSERT INTO CompetesIn VALUES (10001, 12); -- SK Telecome T1, Valorant
-INSERT INTO CompetesIn VALUES (10002, 11); -- Cloud9, LOL
-INSERT INTO CompetesIn VALUES (10003, 11); -- Team Liquid, LOL
-INSERT INTO CompetesIn VALUES (10004, 11); -- G2 Esports, LOL
-INSERT INTO CompetesIn VALUES (10005, 11); -- 100 Thieves, LOL
-INSERT INTO CompetesIn VALUES (10006, 11); -- Fnatic, LOL
+INSERT INTO CompetesIn VALUES (10000, 11); 
+INSERT INTO CompetesIn VALUES (10001, 12); 
+INSERT INTO CompetesIn VALUES (10002, 11); 
+INSERT INTO CompetesIn VALUES (10003, 11); 
+INSERT INTO CompetesIn VALUES (10004, 11); 
+INSERT INTO CompetesIn VALUES (10005, 11); 
+INSERT INTO CompetesIn VALUES (10006, 11); 
 
 -- runsOn
 -- Relation
 -- INSERT INTO runsOn VALUES (Platform(platform_id), Game(game_id))
-INSERT INTO runsOn VALUES ('Switch', 1); -- Switch, The Legend of Zelda: Breath of the Wild
-INSERT INTO runsOn VALUES ('Windows', 2); -- Windows, The Witcher 3: Wild Hunt
-INSERT INTO runsOn VALUES ('Playstation 4', 2); -- Playstation 4, The Witcher 3: Wild Hunt
-INSERT INTO runsOn VALUES ('Xbox One', 2); -- Xbox One, The Witcher 3: Wild Hunt
-INSERT INTO runsOn VALUES ('Windows', 3); -- Windows, Red Dead Redemption 2
-INSERT INTO runsOn VALUES ('Playstation 4', 3); -- Playstation 4, Red Dead Redemption 2
-INSERT INTO runsOn VALUES ('Xbox One', 3); -- Xbox One, Red Dead Redemption 2
-INSERT INTO runsOn VALUES ('Windows', 4); -- Windows, Rainbow Six Siege
-INSERT INTO runsOn VALUES ('Playstation 4', 4); -- Windows, Rainbow Six Siege
-INSERT INTO runsOn VALUES ('Playstation 5', 4); -- playstation 5, Rainbow Six Siege
-INSERT INTO runsOn VALUES ('Xbox One', 4); -- xbox one, Rainbow Six Siege
-INSERT INTO runsOn VALUES ('Xbox Series X/S', 4); -- xbox series X/S, Rainbow Six Siege
-INSERT INTO runsOn VALUES ('Windows', 5); -- Windows, Cyberpunk 2077
-INSERT INTO runsOn VALUES ('Playstation 4', 5); -- Playstation 4, Cyberpunk 2077
-INSERT INTO runsOn VALUES ('Xbox One', 5); -- Xbox One, Cyberpunk 2077
-INSERT INTO runsOn VALUES ('Windows', 6); -- Windows, Grand Theft Auto V
-INSERT INTO runsOn VALUES ('Playstation 4', 6); -- Playstation 4, Grand Theft Auto V
-INSERT INTO runsOn VALUES ('Xbox One', 6); -- Xbox One, Grand Theft Auto V
-INSERT INTO runsOn VALUES ('Windows', 7); -- Windows, Fortnite
-INSERT INTO runsOn VALUES ('iOS', 7); -- iOS, Fortnite
-INSERT INTO runsOn VALUES ('Android', 7); -- Android, Fortnite
-INSERT INTO runsOn VALUES ('Windows', 8); -- Windows, Among Us
-INSERT INTO runsOn VALUES ('iOS', 8); -- iOS, Among Us
-INSERT INTO runsOn VALUES ('Android', 8); -- Android, Among Us
-INSERT INTO runsOn VALUES ('Windows', 9); -- Windows, Hades
-INSERT INTO runsOn VALUES ('Switch', 9); -- Switch, Hades
-INSERT INTO runsOn VALUES ('Playstation 4', 9); -- Playstation 4, Hades
-INSERT INTO runsOn VALUES ('Xbox One', 9); -- Xbox One, Hades
-INSERT INTO runsOn VALUES ('Windows', 10); -- Windows, Dark Souls III
-INSERT INTO runsOn VALUES ('Playstation 4', 10); -- Playstation 4, Dark Souls III
-INSERT INTO runsOn VALUES ('Xbox One', 10); -- Xbox One, Dark Souls III
-INSERT INTO runsOn VALUES ('Windows', 11); -- Windows, League Of Legends
-INSERT INTO runsOn VALUES ('Windows', 12); -- Windows, Valorant
-INSERT INTO runsOn VALUES ('Windows', 13); -- Windows, Maplestory
-INSERT INTO runsOn VALUES ('Windows', 14); -- Windows, Fifa Online 4
-INSERT INTO runsOn VALUES ('Windows', 15); -- Windows, Minecraft
-INSERT INTO runsOn VALUES ('iOS', 15); -- iOS, Minecraft
-INSERT INTO runsOn VALUES ('Android', 15); -- Android, Minecraft
-INSERT INTO runsOn VALUES ('Windows', 16); -- Windows, Starcraft
-INSERT INTO runsOn VALUES ('Windows', 17); -- Windows, Gran Turismo
-INSERT INTO runsOn VALUES ('Playstation 4', 17); -- Playstation 4, Gran Turismo
-INSERT INTO runsOn VALUES ('Windows', 18); -- Windows, Call of Duty: Mobile
-INSERT INTO runsOn VALUES ('iOS', 18); -- iOS, Call of Duty: Mobile
-INSERT INTO runsOn VALUES ('Android', 18); -- Android, Call of Duty: Mobile
-INSERT INTO runsOn VALUES ('PlayStation 3', 19); -- The Last of Us
-INSERT INTO runsOn VALUES ('PlayStation 4', 19); -- The Last of Us
-INSERT INTO runsOn VALUES ('PlayStation 4', 20); -- The Last of Us Part II
-INSERT INTO runsOn VALUES ('PlayStation 5', 20); -- The Last of Us Part II
-INSERT INTO runsOn VALUES ('PC', 21); -- BioShock
-INSERT INTO runsOn VALUES ('Xbox 360', 21); -- BioShock
-INSERT INTO runsOn VALUES ('PlayStation 3', 21); -- BioShock
-INSERT INTO runsOn VALUES ('PC', 22); -- Half-Life
-INSERT INTO runsOn VALUES ('PlayStation 3', 23); -- Journey
-INSERT INTO runsOn VALUES ('PlayStation 4', 23); -- Journey
-INSERT INTO runsOn VALUES ('PlayStation 4', 24); -- God of War
-INSERT INTO runsOn VALUES ('Xbox 360', 25); -- Gears of War
-INSERT INTO runsOn VALUES ('PC', 25); -- Gears of War
-INSERT INTO runsOn VALUES ('PC', 26); -- Psychonauts
-INSERT INTO runsOn VALUES ('Xbox', 26); -- Psychonauts
-INSERT INTO runsOn VALUES ('PlayStation 2', 26); -- Psychonauts
-INSERT INTO runsOn VALUES ('PC', 27); -- Portal
-INSERT INTO runsOn VALUES ('Xbox 360', 27); -- Portal
-INSERT INTO runsOn VALUES ('PlayStation 3', 27); -- Portal
+INSERT INTO runsOn VALUES ('Switch', 1);
+INSERT INTO runsOn VALUES ('Windows', 2);
+INSERT INTO runsOn VALUES ('PlayStation 4', 2); 
+INSERT INTO runsOn VALUES ('Xbox One', 2); 
+INSERT INTO runsOn VALUES ('Xbox Series X/S', 2); 
+INSERT INTO runsOn VALUES ('Windows', 3); 
+INSERT INTO runsOn VALUES ('PlayStation 4', 3); 
+INSERT INTO runsOn VALUES ('Xbox One', 3); 
+INSERT INTO runsOn VALUES ('Windows', 4); 
+INSERT INTO runsOn VALUES ('PlayStation 4', 4); 
+INSERT INTO runsOn VALUES ('PlayStation 5', 4); 
+INSERT INTO runsOn VALUES ('Xbox One', 4); 
+INSERT INTO runsOn VALUES ('Xbox Series X/S', 4); 
+INSERT INTO runsOn VALUES ('Windows', 5); 
+INSERT INTO runsOn VALUES ('PlayStation 4', 5); 
+INSERT INTO runsOn VALUES ('Xbox One', 5); 
+INSERT INTO runsOn VALUES ('Windows', 6); 
+INSERT INTO runsOn VALUES ('PlayStation 4', 6); 
+INSERT INTO runsOn VALUES ('Xbox One', 6); 
+INSERT INTO runsOn VALUES ('Windows', 7); 
+INSERT INTO runsOn VALUES ('iOS', 7); 
+INSERT INTO runsOn VALUES ('Android', 7);
+INSERT INTO runsOn VALUES ('Windows', 8); 
+INSERT INTO runsOn VALUES ('iOS', 8); 
+INSERT INTO runsOn VALUES ('Android', 8); 
+INSERT INTO runsOn VALUES ('Windows', 9);
+INSERT INTO runsOn VALUES ('Switch', 9); 
+INSERT INTO runsOn VALUES ('PlayStation 4', 9);
+INSERT INTO runsOn VALUES ('Xbox One', 9); 
+INSERT INTO runsOn VALUES ('Windows', 10); 
+INSERT INTO runsOn VALUES ('PlayStation 4', 10); 
+INSERT INTO runsOn VALUES ('Xbox One', 10); 
+INSERT INTO runsOn VALUES ('Windows', 11); 
+INSERT INTO runsOn VALUES ('Windows', 12);
+INSERT INTO runsOn VALUES ('Windows', 13); 
+INSERT INTO runsOn VALUES ('Windows', 14); 
+INSERT INTO runsOn VALUES ('Windows', 15); 
+INSERT INTO runsOn VALUES ('iOS', 15); 
+INSERT INTO runsOn VALUES ('Android', 15); 
+INSERT INTO runsOn VALUES ('Windows', 16); 
+INSERT INTO runsOn VALUES ('Windows', 17); 
+INSERT INTO runsOn VALUES ('PlayStation 4', 17); 
+INSERT INTO runsOn VALUES ('Windows', 18); 
+INSERT INTO runsOn VALUES ('iOS', 18); 
+INSERT INTO runsOn VALUES ('Android', 18); 
+INSERT INTO runsOn VALUES ('PlayStation 3', 19);
+INSERT INTO runsOn VALUES ('PlayStation 4', 19);
+INSERT INTO runsOn VALUES ('PlayStation 4', 20); 
+INSERT INTO runsOn VALUES ('PlayStation 5', 20); 
+INSERT INTO runsOn VALUES ('MacOS', 21); 
+INSERT INTO runsOn VALUES ('Windows', 21); 
+INSERT INTO runsOn VALUES ('Xbox 360', 21); 
+INSERT INTO runsOn VALUES ('PlayStation 3', 21); 
+INSERT INTO runsOn VALUES ('Windows', 22); 
+INSERT INTO runsOn VALUES ('PlayStation 3', 23); 
+INSERT INTO runsOn VALUES ('PlayStation 4', 23); 
+INSERT INTO runsOn VALUES ('PlayStation 4', 24); 
+INSERT INTO runsOn VALUES ('Xbox 360', 25); 
+INSERT INTO runsOn VALUES ('Windows', 25); 
+INSERT INTO runsOn VALUES ('Windows', 26); 
+INSERT INTO runsOn VALUES ('MacOS', 26); 
+INSERT INTO runsOn VALUES ('PlayStation 3', 26); 
+INSERT INTO runsOn VALUES ('PlayStation 4', 26);
+INSERT INTO runsOn VALUES ('Xbox 360', 26);
+INSERT INTO runsOn VALUES ('Xbox One', 26);
+INSERT INTO runsOn VALUES ('Windows', 27); 
+INSERT INTO runsOn VALUES ('Xbox 360', 27); 
+INSERT INTO runsOn VALUES ('PlayStation 3', 27); 
 
 
 

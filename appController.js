@@ -113,6 +113,106 @@ router.post('/insert-gamereview', async (req, res) => {
 })
 
 
+// JOIN game with inGenre to select genres
+router.get('/getGenresByGameId', async (req, res) => {
+    try {
+        const game_id = req.query.game_id;
+        let query = `SELECT ig.genre_name 
+                        FROM Game g, inGenre ig 
+                        WHERE g.game_id = ig.game_id 
+                            AND g.game_id = ${game_id}`;
+        const tableContent = await appService.fetchGametableFromDb(query);
+        res.json({ data: tableContent });
+    } catch(err) {
+        res.status(500).json({ success: false });
+        console.error(`Error inGenre joining game_id ${game_id}:`, error);
+    }
+});
+
+// JOIN game with published to select company names
+router.get('/getPublishersByGameId', async (req, res) => {
+    try {
+        const game_id = req.query.game_id;
+        let query = `SELECT c.company_name 
+                        FROM Game g, Published p, Company c
+                        WHERE g.game_id = p.game_id AND p.company_id = c.company_id
+                        AND g.game_id = ${game_id}`;
+        const tableContent = await appService.fetchGametableFromDb(query);
+        res.json({ data: tableContent });
+    } catch(err) {
+        res.status(500).json({ success: false });
+        console.error(`Error published joining game_id ${game_id}:`, error);
+    }
+});
+
+// JOIN game with developed to select company names
+router.get('/getDevelopersByGameId', async (req, res) => {
+    try {
+        const game_id = req.query.game_id;
+        let query = `SELECT c.company_name 
+                        FROM Game g, Developed d, Company c
+                        WHERE g.game_id = d.game_id AND d.company_id = c.company_id
+                        AND g.game_id = ${game_id}`;
+        const tableContent = await appService.fetchGametableFromDb(query);
+        res.json({ data: tableContent });
+    } catch(err) {
+        res.status(500).json({ success: false });
+        console.error(`Error developed joining game_id ${game_id}:`, error);
+    }
+});
+
+// get platform names given game_id
+router.get('/getPlatformsByGameId', async (req, res) => {
+    try {
+        const game_id = req.query.game_id;
+        let query = `SELECT platform_name 
+                        FROM runsOn
+                        WHERE game_id = ${game_id}`;
+        const tableContent = await appService.fetchGametableFromDb(query);
+        res.json({ data: tableContent });
+    } catch(err) {
+        res.status(500).json({ success: false });
+        console.error(`Error getting platforms ${game_id}:`, error);
+    }
+});
+
+// JOIN game with workedOn to select gamepeople names
+router.get('/getGamePeopleByGameId', async (req, res) => {
+    try {
+        const game_id = req.query.game_id;
+        let query = `SELECT gp.gpname 
+                        FROM Game g, workedOn wo, Gameperson gp
+                        WHERE g.game_id = wo.game_id AND wo.gameperson_id = gp.gameperson_id
+                        AND g.game_id = ${game_id}`;
+        const tableContent = await appService.fetchGametableFromDb(query);
+        res.json({ data: tableContent });
+    } catch(err) {
+        res.status(500).json({ success: false });
+        console.error(`Error workedOn joining game_id ${game_id}:`, error);
+    }
+});
+
+router.get('/getReviewsByGameIdFilter', async (req, res) => {
+    try {
+        const game_id = req.query.game_id;
+        const operator = req.query.operator;
+        const input = req.query.input;
+        let query = `
+            SELECT gr.author, gr.rev_desc, gr.score
+                FROM Game g, GameReview gr
+                WHERE g.game_id = gr.game_id 
+                AND g.game_id = ${game_id}
+                AND gr.score ${operator} ${input}
+            `
+        const tableContent = await appService.fetchGametableFromDb(query);
+        res.json({ data: tableContent });
+    } catch(err) {
+        res.status(500).json({ success: false });
+        console.error(`Error fetching reviews ${game_id}:`, error);
+    }
+})
+
+
 
 
 // DEMO CODE BELOW:
