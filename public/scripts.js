@@ -289,6 +289,50 @@ async function deleteGameReview(event) {
 }
 
 
+// FOR DIVISION QUERY
+
+async function submitGenres(event) {
+    event.preventDefault(); // Prevent the default form submission behavior
+
+    // Get selected genres from checkboxes
+    const selectedGenres = Array.from(document.querySelectorAll('input[name="genres"]:checked'))
+        .map(checkbox => checkbox.value);
+
+    console.log('Selected genres:', selectedGenres);
+
+    // Send selected genres to the server using fetch API
+    try {
+        const response = await fetch('/find-games', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ genres: selectedGenres })
+        });
+
+        // Check if the response is successful
+        if (!response.ok) {
+            throw new Error(`Server error: ${response.statusText}`);
+        }
+
+        // Parse JSON response
+        const games = await response.json();
+
+        // Display the game IDs in the results div
+        const resultsDiv = document.getElementById('gameResults');
+        resultsDiv.innerHTML = games.length > 0
+            ? games.map(game => `<p>${game.name}</p>`).join('')
+            : '<p>No games found for selected genres.</p>';
+    } catch (error) {
+        console.error('Error fetching games:', error);
+        // Display error message to the user
+        document.getElementById('gameResults').innerHTML = '<p>An error occurred while fetching games. Please try again later.</p>';
+    }
+}
+
+
+
+
 /* DEMO CODE BELOW
 
 
