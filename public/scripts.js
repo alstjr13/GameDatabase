@@ -70,7 +70,6 @@ async function fetchAndDisplayTable() {
     const response = await fetch(`/gametable?attributes=${selectedAttributes.join(', ')}&table=${tableName}&filters=${filters.join(' AND ')}`, { 
         method: 'GET'
     });
-
     const responseData = await response.json();
     const gametableContent = responseData.data;
 
@@ -309,6 +308,89 @@ async function insertGameReviewTable(event) {
     } else {
         messageElement.textContent = "Error inserting data!";
     }
+}
+
+// For AGGREGATION with GROUP BY query
+async function fetchDisplayGamesWithAvergeReview() {
+    console.log("getting averages for each game");
+
+    const tableBody = document.getElementById('averageTableBody');
+    const tableHeader = document.getElementById('averageTableHeaders');
+
+    const response = await fetch('/calculate-average-scores', { 
+        method: 'GET'
+    });
+    const responseData = await response.json();
+    const gametableContent = responseData.data;
+
+    // Always clear old, already fetched data before new fetching process.
+    if (tableBody) {
+        tableBody.innerHTML = '';
+    }
+    console.log(response);
+    console.log(gametableContent);
+
+    const selectedAttributes = ["game_id", "name", "average_score"];
+
+    tableHeader.innerHTML = '';
+    selectedAttributes.forEach(attribute => {
+        const th = document.createElement('th');
+        th.textContent = attribute;
+        tableHeader.appendChild(th); 
+    });
+
+    gametableContent.forEach(tuple => {
+        const row = tableBody.insertRow();
+        selectedAttributes.forEach(header => {
+            const cell = row.insertCell();
+
+            if (header === 'average_score') {
+                cell.textContent = parseFloat(tuple[header]).toFixed(3);
+            } else {
+                cell.textContent = tuple[header]; 
+            }
+        });
+    });
+}
+
+// For AGGREGATION by HAVING query
+async function getCompaniesByBudget() {
+    const tableBody = document.getElementById('havingqueryBody');
+    const tableHeader = document.getElementById('havingqueryHeaders');
+    const threshold = document.getelementbyid('budgetThreshold').value;
+
+    const response = await fetch('/having-budget', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            threshold: threshold
+        })
+    });
+    const responseData = await response.json();
+    const companies = responseData.data;
+
+    // Clear existing table data
+    tableBody.innerHTML = '';
+
+    // Update table headers
+    const selectedAttributes = ["company_id", "company_name", "avg_budget"];
+    tableHeader.innerHTML = '';
+    selectedAttributes.forEach(header => {
+        const th = document.createElement('th');
+        th.textContent = header;
+        tableHeader.appendChild(th);
+    });
+
+    // Populate table with new data
+    companies.forEach(company => {
+        const row = tableBody.insertRow();
+        selectedAttributes.forEach(header => {
+            const cell = row.insertCell();
+            cell.textContent = tuple[header]; 
+        })
+    });
 }
 
 // For UPDATE Query

@@ -252,6 +252,7 @@ router.get('/getGamePeopleByGameId', async (req, res) => {
     }
 });
 
+// JOIN game with GameReview with selector query to filter a game's reviews
 router.get('/getReviewsByGameIdFilter', async (req, res) => {
     try {
         const game_id = req.query.game_id;
@@ -273,14 +274,12 @@ router.get('/getReviewsByGameIdFilter', async (req, res) => {
 })
 
 // GROUP BY:
-router.post('/average-scores', async (req, res) => {
+router.get('/calculate-average-scores', async (req, res) => {
     console.log("POST request for GROUP BY received");
     
-    // TODO
-    const {  } = req.body;
     try {
         const scores = await appService.calculateAverageScore();
-        res.json(scores);
+        res.json({ data: scores });
     } catch (error) {
         console.error('Error Calculating Average Score of games:', error);
         res.status(500).json({ success: false });
@@ -290,16 +289,26 @@ router.post('/average-scores', async (req, res) => {
 // HAVING:
 router.post('/having-budget', async (req, res) => {
     console.log("POST request for HAVING received");
-    // TODO 
-    const {} = req.body;
-    try {
-        const companies = await appService.havingBudget();
-        res.json(companies);
-    } catch (error) {
-        console.error('Error getting average budget of companies', error);
-        res.status(500).json({ success: false });
+
+    const threshold = req.query.reqBody;
+    // User input not received:
+    if (threshold === undefined) {
+        return res.status(400).json({message: "Input a value in USD to retrieve list of companies"})
     }
-});
+
+    try {
+        const results = appService.havingBudget(threshold);
+
+        if (results == false) {
+            res.status(500).json({message: "ERROR: Query unable to execute"})
+        } else {
+            res.json({ data: results });
+        }
+    } catch(err) {
+        console.error("ERROR: ", err)
+        res.status(500).json({message: "ERROR: havingBudget Unable to be executed"})
+    }
+})
 
 
 
