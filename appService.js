@@ -246,6 +246,56 @@ async function insertGameReview(game_id, author, rev_desc, score) {
     });
 }
 
+// // GROUP BY Functionality - Calculate the Average Score of the Game Review of games in the table
+// async function calculateAverageScore() {
+//     console.log("Sending queries for GROUP BY");
+
+//     return await withOracleDB(async (connection) => {
+//         const result = await connection.execute(
+//             `
+//             SELECT   game.game_id, game.game_name, AVG(review.score) AS average_score,
+//             FROM     GameReview review,
+//             JOIN     Game game ON review.game_id = game.game_id
+//             GROUP BY game.game_id, game.game_name
+//             `
+//         )
+//         return result.rows.map(row => ({
+//             game_id:       row[0],
+//             name:          row[1],
+//             average_score: row[2]
+//         }));
+//     }).catch(() => {
+//         return false; 
+//     });
+// }
+
+// HAVING Functionality - Retrieve Tables with companies who have spent more than 100000 dollars (USD) to develop their games
+async function havingBudget() {
+    console.log("Sending queries for HAVING");
+
+    return await withOracleDB(async (connection) => {
+        const result = await connection.execute(
+            `
+            SELECT      c.company_name, AVG(g.budget) AS avg_budget
+            FROM        Company c
+            JOIN        Developed d ON c.company_id = d.company_id
+            JOIN        Game g ON d.game_id = g.game_id
+            GROUP BY    c.company_name
+            HAVING      AVG(g.budget) > 100000
+            `
+        )
+        return result.rows.map(row => ({
+            company_name:    row[0],
+            avg_budget:      row[1]
+        }));
+    }).catch(() => {
+        return false; 
+    })
+}
+
+
+
+
 // DEMO CODE BELOW: 
 
 
@@ -319,5 +369,7 @@ module.exports = {
     deleteGameReview,
     findGames,
     insertGameReview,
-    findAboveAverageGames
+    findAboveAverageGames,
+    havingBudget
+
 };
