@@ -151,13 +151,12 @@ async function deleteGameReview(gameID, author) {
 async function findGames(genres) {
     console.log("Sending queries for division"); 
     return await withOracleDB(async (connection) => {
-        // Build the query to find game IDs matching all selected genres
-        const genreConditions = genres.map((_, index) => `g.genre_name = :genre${index}`).join(' OR ');
+        const genreList = genres.map((_, index) => `:genre${index}`).join(', ');
         const sqlQuery = `
             SELECT ga.game_id, ga.game_name
             FROM inGenre g
             JOIN Game ga ON g.game_id = ga.game_id
-            WHERE ${genreConditions}
+            WHERE g.genre_name IN (${genreList})
             GROUP BY ga.game_id, ga.game_name
             HAVING COUNT(DISTINCT g.genre_name) = :genreCount
         `;
@@ -187,17 +186,20 @@ async function findGames(genres) {
 async function findAboveAverageGames(genres) {
     console.log("Sending queries to find above average games"); 
     return await withOracleDB(async (connection) => {
-        // Build the query to find game IDs matching all selected genres
-        const genreConditions = genres.map((_, index) => `g.genre_name = :genre${index}`).join(' OR ');
+        // Prepare genre bind variables
+        const genreList = genres.map((_, index) => `:genre${index}`).join(', ');
         const sqlQuery = `
             SELECT ga.game_id, ga.game_name
-            FROM inGenre g, Game ga, GameReview gr
-            WHERE ga.game_id = g.game_id AND ga.game_id = gr.game_id AND ${genreConditions}
+            FROM inGenre g
+            JOIN Game ga ON g.game_id = ga.game_id
+            JOIN GameReview gr ON ga.game_id = gr.game_id
+            WHERE g.genre_name IN (${genreList})
             GROUP BY ga.game_id, ga.game_name
-            HAVING AVG(score) > (
-                SELECT AVG(score)
-                FROM GameReview
-            )
+            HAVING COUNT(DISTINCT g.genre_name) = :genreCount
+                AND AVG(gr.score) > (
+                    SELECT AVG(score)
+                    FROM GameReview
+                )
         `;
         
         // Create bind parameters
@@ -205,6 +207,7 @@ async function findAboveAverageGames(genres) {
             params[`genre${index}`] = genre;
             return params;
         }, {});
+        bindParams.genreCount = genres.length; // Include genreCount
 
         // Execute the SELECT query
         const result = await connection.execute(sqlQuery, bindParams);
@@ -219,6 +222,7 @@ async function findAboveAverageGames(genres) {
         throw error;
     });
 }
+
 
 
 async function insertGameReview(game_id, author, rev_desc, score) {
