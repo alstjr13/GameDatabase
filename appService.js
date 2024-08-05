@@ -277,7 +277,7 @@ async function havingBudget(threshold) {
             FROM        Company c
             JOIN        Developed d ON c.company_id = d.company_id
             JOIN        Game g ON d.game_id = g.game_id
-            GROUP BY    c.company_name
+            GROUP BY    c.company_id, c.company_name
             HAVING      AVG(g.budget) > :user_input
             `,
             {user_input: threshold}

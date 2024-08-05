@@ -354,10 +354,12 @@ async function fetchDisplayGamesWithAvergeReview() {
 }
 
 // For AGGREGATION by HAVING query
-async function getCompaniesByBudget() {
+async function getCompaniesByBudget(event) {
+    event.preventDefault(); //prevent page refresh
+
     const tableBody = document.getElementById('havingqueryBody');
     const tableHeader = document.getElementById('havingqueryHeaders');
-    const threshold = document.getelementbyid('budgetThreshold').value;
+    const threshold = document.getElementById('budgetThreshold').value;
 
     const response = await fetch('/having-budget', {
         method: 'POST',
@@ -375,7 +377,7 @@ async function getCompaniesByBudget() {
     tableBody.innerHTML = '';
 
     // Update table headers
-    const selectedAttributes = ["company_id", "company_name", "avg_budget"];
+    const selectedAttributes = ["company_ID", "company_name", "avg_budget"];
     tableHeader.innerHTML = '';
     selectedAttributes.forEach(header => {
         const th = document.createElement('th');
@@ -386,9 +388,9 @@ async function getCompaniesByBudget() {
     // Populate table with new data
     companies.forEach(company => {
         const row = tableBody.insertRow();
-        selectedAttributes.forEach(header => {
+        selectedAttributes.forEach(attr => {
             const cell = row.insertCell();
-            cell.textContent = tuple[header]; 
+            cell.textContent = company[attr]; 
         })
     });
 }

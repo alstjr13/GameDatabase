@@ -132,9 +132,9 @@
     <br><hr><br> <!-- ========================================================================= -->
 
     <h2>Find companies with given development expenditure</h2>
-    <form id="havingquery">
+    <form id="havingquery" onsubmit="getCompaniesByBudget(event)">
         Budget threshold: <input type="number" id="budgetThreshold" placeholder="Enter amount (USD)" min="0" required>
-        <button onclick="getCompaniesByBudget()">Find Companies</button>
+        <button type="submit">Find Companies</button>
     </form>
 
     <!-- area for fetched review averages table to be displayed -->

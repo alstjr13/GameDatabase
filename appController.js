@@ -290,14 +290,15 @@ router.get('/calculate-average-scores', async (req, res) => {
 router.post('/having-budget', async (req, res) => {
     console.log("POST request for HAVING received");
 
-    const threshold = req.query.reqBody;
+    const threshold = req.body.threshold;
+
     // User input not received:
     if (threshold === undefined) {
         return res.status(400).json({message: "Input a value in USD to retrieve list of companies"})
     }
 
     try {
-        const results = appService.havingBudget(threshold);
+        const results = await appService.havingBudget(threshold);
 
         if (results == false) {
             res.status(500).json({message: "ERROR: Query unable to execute"})
