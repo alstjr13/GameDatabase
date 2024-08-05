@@ -20,3 +20,6 @@ Compared to milestone 1 and 2, our database schema has updated the ISA to repres
 
 ## Milestone 3
 [Milestone 3 PDF](./assets/CPSC304_Milestone3_Group14.pdf)
+
+## Milestone 4
+[Milestone 4 PDF](./assets/CPSC304_Milestone4_Group14.pdf)
