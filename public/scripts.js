@@ -45,7 +45,7 @@ async function fetchAndDisplayTable() {
     const tableName = document.getElementById('table_select').value;
     const tableBody = document.getElementById('gametableBody');
     const tableHeader = document.getElementById('gametableHeaders');
-    const messageElement = document.getElementById('insertResultMsg');
+    // const messageElement = document.getElementById('insertResultMsg');
 
     // obtain user selected attributes
     const selectedAttributes = Array.from(
@@ -73,9 +73,9 @@ async function fetchAndDisplayTable() {
     const responseData = await response.json();
     const gametableContent = responseData.data;
 
-    if (responseData.success) {
-    } else {
-        messageElement.textContent = "Error fetching data!";
+    if (!responseData.success) {
+        // messageElement.textContent = "Error fetching data!";
+        console.log("Error fetching data!")
     }
 
     // Always clear old, already fetched data before new fetching process.
@@ -213,70 +213,87 @@ async function getAllTables() {
     });
 }
 
+// Fetch all tables upon page refresh, only on index.html
+document.addEventListener('DOMContentLoaded', () => {
+    if (window.location.pathname.endsWith('index.html')) {
+        getAllTables();
+    }
+});
+
 // add event listener to determine user selected table,
 // then fetch tables attributes from database. generate html elements
 var tableSelection = document.getElementById("table_select");
-tableSelection.addEventListener('change', async (event) => {
-    const attributeSelect = document.getElementById("attribute_select");
-    const applyFilters = document.getElementById("apply_filter"); 
-    const selectedTable = event.target.value;
 
-    console.log(selectedTable);
+// Only add event listener if we are at index.html
+if (tableSelection) {
+    tableSelection.addEventListener('change', async (event) => {
+        const attributeSelect = document.getElementById("attribute_select");
+        const applyFilters = document.getElementById("apply_filter"); 
+        const selectedTable = event.target.value;
+    
+        console.log(selectedTable);
+    
+        // will return array of objects { name: attribute_name }
+        const response = await fetch(`/getTableAttributes?name=${selectedTable}`, {
+            method: 'GET' 
+        });
+        const responseData = await response.json();
+        const attributesList = responseData.data;
+    
+        // clean elements, create new labels and inputs, append to div
+        attributeSelect.innerHTML = '';
+        applyFilters.innerHTML = '';
+        attributesList.forEach(attribute => {
+            // attribute checkboxes for projection
+            const label = document.createElement('label');
+            const input = document.createElement('input');
+    
+            // Styling for labels and inputs
+            label.htmlFor = attribute.name;
+            label.textContent = attribute.name; 
+    
+            input.type = 'checkbox';
+            input.id = attribute.name;
+            input.name = 'attribute';
+            input.value = attribute.name;
+            input.checked = true;
 
-    // will return array of objects { name: attribute_name }
-    const response = await fetch(`/getTableAttributes?name=${selectedTable}`, {
-        method: 'GET' 
+
+    
+            attributeSelect.appendChild(input);
+            attributeSelect.appendChild(label);
+    
+            // attribute filtering for selection
+            const filterDiv = document.createElement('div');
+            filterDiv.className = 'filter-apply'; 
+    
+            const filterAttributeName = document.createElement('div');
+            filterAttributeName.innerHTML = `${attribute.name}`;
+    
+            // const filterLabel = document.createElement('label');
+    
+            // Styling for filtering operators
+            const filterOperator = document.createElement('select');
+            filterOperator.id = `${attribute.name}_operator`;
+            filterOperator.innerHTML = '<option value="=">=</option> <option value=">">></option> <option value="<"><</option>';
+    
+            const filterInput = document.createElement('input');
+            filterInput.type = 'text';
+            filterInput.id = `${attribute.name}_input`;
+            filterInput.style.marginLeft = '10px';
+    
+            filterDiv.appendChild(filterAttributeName);
+            // filterDiv.appendChild(filterLabel);
+            filterDiv.appendChild(filterOperator);
+            filterDiv.appendChild(filterInput);
+    
+            applyFilters.appendChild(filterDiv);
+        });
     });
-    const responseData = await response.json();
-    const attributesList = responseData.data;
+}
 
-    // clean elements, create new labels and inputs, append to div
-    attributeSelect.innerHTML = '';
-    applyFilters.innerHTML = '';
-    attributesList.forEach(attribute => {
-        // attribute checkboxes for projection
-        const label = document.createElement('label');
-        const input = document.createElement('input');
 
-        label.htmlFor = attribute.name;
-        label.textContent = attribute.name; 
-
-        input.type = 'checkbox';
-        input.id = attribute.name;
-        input.name = 'attribute';
-        input.value = attribute.name;
-        input.checked = true;
-
-        attributeSelect.appendChild(input);
-        attributeSelect.appendChild(label);
-
-        // attribute filtering for selection
-        const filterDiv = document.createElement('div');
-        filterDiv.className = 'filter-apply'; 
-
-        const filterAttributeName = document.createElement('div');
-        filterAttributeName.innerHTML = `${attribute.name}`;
-
-        // const filterLabel = document.createElement('label');
-
-        const filterOperator = document.createElement('select');
-        filterOperator.id = `${attribute.name}_operator`;
-        filterOperator.innerHTML = '<option value="=">=</option> <option value=">">></option> <option value="<"><</option>';
-
-        const filterInput = document.createElement('input');
-        filterInput.type = 'text';
-        filterInput.id = `${attribute.name}_input`;
-
-        filterDiv.appendChild(filterAttributeName);
-        // filterDiv.appendChild(filterLabel);
-        filterDiv.appendChild(filterOperator);
-        filterDiv.appendChild(filterInput);
-
-        applyFilters.appendChild(filterDiv);
-    });
-});
-
-document.getElementById('insertGameReviewForm').addEventListener('submit', insertGameReviewTable);
+// document.getElementById('insertGameReviewForm').addEventListener('submit', insertGameReviewTable);
 async function insertGameReviewTable(event) {
     event.preventDefault();
 

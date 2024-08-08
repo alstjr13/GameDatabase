@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- This meta tag ensures that the website renders correctly across different device sizes, enhancing mobile responsiveness. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="styles.css">  
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+
+    <title>Database Application</title>
+</head>
+
+
+ <!-- Navigation Bar -->
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="navbar-container">
+            <div class="navbar-left">
+                <p>Video Game Database</p>
+            </div>
+            <div class="navbar-right">
+                <ul class="navbar">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="game-info.html">Game Info</a></li>
+                    <li><a href="review-games.html">Game Reviews</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="app-container">
+
+        <h2> Insert Your Reviews into GameReview Table </h2>
+        <!----<label for="table_select">Choose a table</label>
+        <select name="tables" id="table_select"></select> --->
+    
+        <form id="insertGameReviewForm">
+            ID: <input type="number" id="insertID" placeholder="Enter ID" min="1" required> <br><br>
+            Author: <input type="text" id="insertAuthor" placeholder="Enter your user name" maxlength="20" required> <br><br>
+            Rev_Desc: <input type="text" id="insertDesc" placeholder="Enter Review" required> <br><br>
+            Score: <input type="number" id="insertScore" placeholder="Enter Score (0 ~ 5)" maxlength="20" min="0" max="5"> <br><br> 
+    
+            <button type="submit" onclick="insertGameReviewTable(event)"> Insert Game Review</button> <br>
+        </form>
+        <div id="insertResultMsg"></div>
+    
+        <br><hr><br> <!-- ========================================================================= -->
+    
+        <!-- UPDATE -->
+        <!-- We will let the user update their GAME_ID, REV_DESC, and SCORE -->
+    
+        <h2>Update Your GameReview</h2>
+        <p>Please note that the input boxes are case sensitive</p>
+     
+        <div class="form-container">
+            <form id="insertDemotable"> 
+                AUTHOR: <input type="text" id="updateAuthor" placeholder="Ex. 'RobbyRobert'" required> <br><br>
+                GAME_ID: <input type="number" id="updateGameID" placeholder="Ex. 1" required> <br><br>
+                REV_DESC: <input type="text" id="updateRevDesc" placeholder="Ex. 'Fantastic Graphics'" required> <br><br>
+                SCORE: <input type="number" id="updateScore" min="0" max="5"> <br><br>
+                <button type="button" onclick="updateGameReview(event)"> Update Review </button> <br>
+            </form>
+        </div>
+        <div id="updateResultMsg"></div>
+    
+    
+        <br><hr><br> <!-- ========================================================================= -->
+    
+        <!-- DELETE -->
+         <!-- We will let the user delete their GameReview given a GameID and Author-->
+    
+         <h2>Delete Your GameReview</h2>
+         <p>Please note that the input boxes are case sensitive</p>
+      
+         <div class="form-container">
+             <form id="insertDemotable">
+                 AUTHOR: <input type="text" id="deleteAuthor" placeholder="Ex. 'RobbyRobert'" required> <br><br>
+                 GAME_ID: <input type="number" id="deleteGameID" placeholder="Ex. 1" required> <br><br>
+                 <button type="button" onclick="deleteGameReview(event)"> Delete Review </button> <br>
+             </form>
+         </div>
+         <div id="deleteResultMsg"></div>
+    
+     
+     
+         <br><hr><br> <!-- ========================================================================= -->
+    </div>
+
+    <!-- ===================================================================================== -->
+    <!-- External JavaScript file that contains the functionality/logic for the operations above. -->
+    <script src="scripts.js"></script>
+</body>
+</html>
