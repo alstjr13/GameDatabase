@@ -1,11 +1,10 @@
 /* GLOBAL STYLES */
 body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    padding: 40px;
-    max-width: 800px;
-    margin: auto;
     line-height: 1.6;
     background-color: #fffef5f9;
+    padding: 0;
+    margin: 0;
     color: #313131;
 }
 
@@ -19,6 +18,7 @@ table {
     width: 100%;
     border-collapse: collapse;
     background-color: #fff;
+    margin-top: 10px;
     box-shadow: 0 1px 12px rgba(0, 0, 0, 0.1);
     border-radius: 5px;
 }
@@ -52,6 +52,7 @@ button {
     cursor: pointer;
     transition: background-color 0.3s;
     outline: none;
+    margin-bottom: 10px;
 }
 
 button:hover {
@@ -64,7 +65,7 @@ button:active {
 
 /* INPUT STYLES */
 input, textarea {
-    width: auto;
+    width: 40px;
     padding: 10px 15px;
     font-size: 16px;
     border: 1px solid #ccc;
@@ -74,6 +75,21 @@ input, textarea {
     box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
     margin-bottom: 10px;
 }
+
+/* Target textboxes */
+input[type="text"], input[type="number"] {
+    width: 240px;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #333;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+}
+
+
 
 input::placeholder, textarea::placeholder {
     color: #aaa;
@@ -89,7 +105,86 @@ input::placeholder, textarea::placeholder {
 
 .dropdown-content {
     display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+    flex-wrap: wrap;
+    flex-direction: row;
+    align-items: left;
+    justify-content: flex-start;
+    margin-bottom: 10px;
 }
+
+.dropdown-content label {
+    margin-left: 10px;
+}
+
+/* APP CONTAINER */
+
+.app-container {
+    padding-top: 0px;
+    padding-bottom: 40px;
+    padding-left: 40px;
+    padding-right: 40px;
+}
+
+
+/* NAVBAR */
+
+/* Ensure the nav takes full width */
+nav {
+    width: 100%;
+    background-color: rgb(32, 107, 227);
+    padding: 10px; 
+}
+
+/* Flex container for navbar items */
+.navbar-container {
+    display: flex;
+    justify-content: space-between; /* Space between left and right elements */
+    align-items: center; 
+}
+
+/* Styling for the left side of the navbar */
+.navbar-left {
+    margin-left: 5px;
+}
+
+.navbar-left p {
+    color: white;
+    font-size: large;
+}
+
+/* Styling for the right side of the navbar */
+.navbar-right {
+    margin-right: 5px;
+}
+
+/* List items styling */
+.navbar {
+    list-style: none; /* Remove default list styling */
+    margin: 0; 
+    padding: 0; 
+    display: flex; 
+}
+
+/* List item styling */
+.navbar li {
+    margin: 0 10px; 
+}
+
+/* Link styling */
+.navbar li a {
+    color: white; 
+    font-size: large;
+    text-decoration: none; 
+    padding: 5px 10px; 
+}
+
+/* Optional: Add hover effect for links */
+.navbar li a:hover {
+    text-decoration: underline; 
+}
+
+
+
+
+
+

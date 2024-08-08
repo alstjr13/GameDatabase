@@ -61,7 +61,7 @@ router.get('/gametable', async (req, res) => {
         }
 
         const tableContent = await appService.fetchGametableFromDb(query);
-        res.json({ data: tableContent });
+        res.json({ data: tableContent, success: true });
     } catch (error) {
         res.status(500).json({ success: false });
         console.error('Error fetching game table:', error);

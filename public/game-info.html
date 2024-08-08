@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <!-- This meta tag ensures that the website renders correctly across different device sizes, enhancing mobile responsiveness. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="styles.css">  
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
+
+    <title>Database Application</title>
+</head>
+
+<body>
+
+    <!-- Navigation Bar -->
+    <nav>
+        <div class="navbar-container">
+            <div class="navbar-left">
+                <p>Video Game Database</p>
+            </div>
+            <div class="navbar-right">
+                <ul class="navbar">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="game-info.html">Game Info</a></li>
+                    <li><a href="review-games.html">Game Reviews</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+     <!-- DIVISION -->
+     <!-- The user will be able to interact with checkboxes to select what games to view-->
+    <!-- We will return the game_ids and name of game that corresponds to the users requets-->
+    <div class="app-container">
+
+        <h2>Pick your favorite genres and find a game for you</h2>
+  
+        <div class="form-container">
+               <div class="dropdown-content" id="genreDropdown">
+                   <!-- Hardcoded genres as checkboxes -->
+                   <label><input type="checkbox" name="genres" value="Action"> Action</label>
+                   <label><input type="checkbox" name="genres" value="Adventure"> Adventure</label>
+                   <label><input type="checkbox" name="genres" value="RPG"> RPG</label>
+                   <label><input type="checkbox" name="genres" value="Single Player"> Single Player</label>
+                   <label><input type="checkbox" name="genres" value="Story-Rich"> Story-Rich</label>
+                   <label><input type="checkbox" name="genres" value="Shooter"> Shooter</label>
+                   <label><input type="checkbox" name="genres" value="Third Person Shooter"> Third Person Shooter</label>
+                   <label><input type="checkbox" name="genres" value="Competitive"> Competitive</label>
+                   <label><input type="checkbox" name="genres" value="First Person Shooter"> First Person Shooter</label>
+                   <label><input type="checkbox" name="genres" value="Multiplayer"> Multiplayer</label>
+                   <label><input type="checkbox" name="genres" value="Tactical Shooter"> Tactical Shooter</label>
+                   <label><input type="checkbox" name="genres" value="Racing"> Racing</label>
+                   <label><input type="checkbox" name="genres" value="Battle Royale"> Battle Royale</label>
+                   <label><input type="checkbox" name="genres" value="Building"> Building</label>
+                   <label><input type="checkbox" name="genres" value="Survival"> Survival</label>
+                   <label><input type="checkbox" name="genres" value="Coop"> Coop</label>
+                   <label><input type="checkbox" name="genres" value="Party"> Party</label>
+                   <label><input type="checkbox" name="genres" value="Social Deduction"> Social Deduction</label>
+                   <label><input type="checkbox" name="genres" value="Roguelike"> Roguelike</label>
+                   <label><input type="checkbox" name="genres" value="MOBA"> MOBA</label>
+                   <label><input type="checkbox" name="genres" value="Strategy"> Strategy</label>
+                   <label><input type="checkbox" name="genres" value="Hero Shooter"> Hero Shooter</label>
+                   <label><input type="checkbox" name="genres" value="MMORPG"> MMORPG</label>
+                   <label><input type="checkbox" name="genres" value="Platformer"> Platformer</label>
+                   <label><input type="checkbox" name="genres" value="Sports"> Sports</label>
+                   <label><input type="checkbox" name="genres" value="Casual"> Casual</label>
+                   <label><input type="checkbox" name="genres" value="Sandbox"> Sandbox</label>
+                   <label><input type="checkbox" name="genres" value="RTS"> RTS</label>
+                   <label><input type="checkbox" name="genres" value="Simulation"> Simulation</label>
+                   <label><input type="checkbox" name="genres" value="Horror"> Horror</label>
+                   <label><input type="checkbox" name="genres" value="Indie"> Indie</label>
+                   <label><input type="checkbox" name="genres" value="Puzzle"> Puzzle</label>
+               </div>
+           </div>
+       
+           <!-- Submit button -->
+           <button type="submit" onclick="submitGenres('findGames')">I want ALL games</button>
+           <button type="submit" onclick="submitGenres('findAboveAverageGames')">I want ABOVE AVG games</button>
+    
+        <!-- Section to display results -->
+        <div id="gameResults" class="results"></div>
+    
+        <br><hr><br> <!-- ========================================================================= -->
+
+        <h2>Display games with average rating:</h2>
+        <button onclick="fetchDisplayGamesWithAvergeReview()">Show games with average rating</button>
+        <br> <br>
+    
+        <!-- area for fetched review averages table to be displayed -->
+        <table id="averageTable" border="1">
+            <thead>
+                <tr id="averageTableHeaders">
+                    <!--Table head, need to be adjusted accordingly to align with your own.-->
+                </tr>
+            </thead>
+            <tbody id="averageTableBody">
+            </tbody>
+        </table>
+    
+        <br><hr><br> <!-- ========================================================================= -->
+    
+        <h2>Find companies with given development expenditure</h2>
+        <form id="havingquery" onsubmit="getCompaniesByBudget(event)">
+            Budget threshold: <input type="number" id="budgetThreshold" placeholder="Enter amount (USD)" min="0" required>
+            <button type="submit">Find Companies</button>
+        </form>
+    
+        <!-- area for fetched review averages table to be displayed -->
+        <table id="havingquery" border="1">
+            <thead>
+                <tr id="havingqueryHeaders">
+                    <!--Table head, need to be adjusted accordingly to align with your own.-->
+                </tr>
+            </thead>
+            <tbody id="havingqueryBody">
+            </tbody>
+        </table>
+    </div>
+    
+     
+    <br><hr><br> <!-- ========================================================================= -->
+    
+     
+    <!-- ===================================================================================== -->
+    <!-- External JavaScript file that contains the functionality/logic for the operations above. -->
+    <script src="scripts.js"></script>
+</body>
+</html>
